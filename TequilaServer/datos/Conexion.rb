@@ -1,4 +1,4 @@
-require 'Mysql2'
+require 'mysql2'
 
 class Conexion 
 	# Ubicación de la BD, Usuario, Password, Nombre de la base de datos

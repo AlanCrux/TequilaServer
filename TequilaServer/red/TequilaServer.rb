@@ -1,14 +1,33 @@
-require "socket"
- 
-# Crear el socket que escucha
-servers = Socket.tcp_server_sockets(4481)
+$:.push('gen-rb')
+$:.unshift '../../lib/rb/lib'
 
-puts "Servidor corriendo"
+require 'thrift'
+require 'servicio_canciones'
+require '/home/alan/Documents/Git/TequilaServer/TequilaServer/mappers/MapperCancion.rb'
 
-Socket.accept_loop(servers) do |connection|
-	puts "Se conecto un cliente"
-	connection.puts("Hola cliente")
+class CancionesHandler
+	def initialize()
+		@log = {}
+	end
+
+	def ping()
+		puts "ping()"
+	end
+
+	def obtenerCanciones(criterio)
+		mapperCancion = MapperCancion.new 
+		return mapperCancion.obtener_canciones
+	end
+
 end
 
-connection.close
- 
+handler = CancionesHandler.new()
+processor = Services::ServicioCanciones::Processor.new(handler)
+transport = Thrift::ServerSocket.new(9090)
+transportFactory = Thrift::BufferedTransportFactory.new()
+server = Thrift::SimpleServer.new(processor, transport, transportFactory)
+
+puts "Starting the server..."
+server.serve()
+puts "done." 
+
