@@ -6,8 +6,7 @@ require '/Users/alan/Documents/GitHub/TequilaServer/TequilaServer/red/gen-rb/ser
 
 class MapperConsumidor
 
-def obtener_consumidor(criterio) 
-		criterio = "%"+criterio+"%"
+def obtener_consumidor(correo) 
 
 		# Igualamos una variable con un objeto conexion de la clase conexión
 		conexion = Conexion.new
@@ -16,7 +15,7 @@ def obtener_consumidor(criterio)
 		# Preparamos la consulta 
 		consulta = con.prepare("select * from Consumidor where correo = ?")
 		# Pasamos los parametros a la consulta y ejecutamos, el resultado se guarda en una variable
-		resultado = consulta.execute(criterio)
+		resultado = consulta.execute(correo)
 		
 		# Iniciamos un ciclo donde se procesa cada registro de la consulta
 		resultado.each do |registro|
@@ -45,7 +44,26 @@ def obtener_consumidor(criterio)
 	   	return consumidor 
 	end
 
+def insertar_consumidor(consumidor) 
+		conexion = Conexion.new
+		con = conexion.conectar
 
+		consulta = con.prepare("insert into Consumidor values (?,?,?)")
+
+		consulta.execute(consumidor.correo, consumidor.nombre, consumidor.clave)
+		
+   		consulta.free
+
+   		rescue Mysql2::Error => e
+   			puts e
+   			puts "Error code: #{e.errno}"
+		    puts "Error message: #{e.error}"
+	   	ensure
+	   		# Cerramos la conexión
+	   		con.close if con
+	   		# Retornamos 
+	   	return true 
+	end
 
 
 
