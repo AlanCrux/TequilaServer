@@ -2,32 +2,26 @@ $:.push('gen-rb')
 $:.unshift '../../lib/rb/lib'
 
 require 'thrift'
-require 'servicio_canciones'
-require '/home/alan/Documents/Git/TequilaServer/TequilaServer/mappers/MapperCancion.rb'
+require 'servicios'
+require '/Users/alan/Documents/GitHub/TequilaServer/TequilaServer/mappers/MapperCancion.rb'
 
-class CancionesHandler
-	def initialize()
-		@log = {}
-	end
-
-	def ping()
-		puts "ping()"
-	end
-
+# En esta clase se define el comportamiento de todos los métodos expuestos en Thrift
+class ControlServicios
 	def obtenerCanciones(criterio)
 		mapperCancion = MapperCancion.new 
-		return mapperCancion.obtener_canciones
+		canciones = mapperCancion.obtener_canciones(criterio)
+		return canciones
 	end
 
 end
 
-handler = CancionesHandler.new()
-processor = Services::ServicioCanciones::Processor.new(handler)
+control = ControlServicios.new()
+processor = Servicios::Processor.new(control)
 transport = Thrift::ServerSocket.new(9090)
 transportFactory = Thrift::BufferedTransportFactory.new()
 server = Thrift::SimpleServer.new(processor, transport, transportFactory)
 
-puts "Starting the server..."
+puts "--- Servidor en línea ---"
 server.serve()
-puts "done." 
+puts "Termiando." 
 
