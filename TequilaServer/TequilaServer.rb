@@ -6,7 +6,7 @@ require 'thrift'
 require 'servicios'
 require 'MapperCancion'
 require 'MapperConsumidor'
-
+require 'MapperArtista'
 # En esta clase se define el comportamiento de todos los métodos expuestos en Thrift
 class ControlServicios
 	def obtenerCancionesFiltradas(criterio)
@@ -19,6 +19,16 @@ class ControlServicios
 		mapper = MapperConsumidor.new
 		consumidor = mapper.obtener_consumidor(correo)
 		return consumidor
+	end
+
+	def insertarConsumidor(consumidor)
+		mapper = MapperConsumidor.new
+		return mapper.insertar_consumidor(consumidor) 
+	end
+
+	def insertarArtista(artista)
+		mapper = MapperArtista.new
+		return mapper.insertar_artista(artista) 
 	end
 
 end

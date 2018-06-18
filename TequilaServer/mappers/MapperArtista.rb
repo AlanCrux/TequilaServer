@@ -6,7 +6,7 @@ require '/Users/alan/Documents/GitHub/TequilaServer/TequilaServer/gen-rb/servici
 
 class MapperConsumidor
 
-def obtener_consumidor(criterio) 
+	def obtener_artista(correo) 
 
 		# Igualamos una variable con un objeto conexion de la clase conexión
 		conexion = Conexion.new
@@ -15,7 +15,7 @@ def obtener_consumidor(criterio)
 		# Preparamos la consulta 
 		consulta = con.prepare("select * from Artista where correo = ?")
 		# Pasamos los parametros a la consulta y ejecutamos, el resultado se guarda en una variable
-		resultado = consulta.execute(criterio)
+		resultado = consulta.execute(correo)
 		
 		# Iniciamos un ciclo donde se procesa cada registro de la consulta
 		resultado.each do |registro|
@@ -44,7 +44,7 @@ def obtener_consumidor(criterio)
 	   	return artista 
 	end
 
-def insertar_artista(artista) 
+	def insertar_artista(artista) 
 		conexion = Conexion.new
 		con = conexion.conectar
 
@@ -64,7 +64,5 @@ def insertar_artista(artista)
 	   		# Retornamos 
 	   	return true 
 	end
-
-
 
 end
