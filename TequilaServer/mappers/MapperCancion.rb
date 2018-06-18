@@ -2,7 +2,7 @@
 # Requiere la clase conexión 
 require_relative 'datos/Conexion' 
 # Requiere la clase tipos generada por Thrift, aqui estan los objetos del dominio
-require '/Users/alan/Documents/GitHub/TequilaServer/TequilaServer/gen-rb/servicios_types.rb'
+require '/home/esmeralda/Documentos/TequilaServer/TequilaServer/gen-rb/servicios_types.rb'
 
 class MapperCancion
 

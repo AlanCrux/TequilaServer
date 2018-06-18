@@ -2,9 +2,9 @@
 # Requiere la clase conexión 
 require_relative 'datos/Conexion' 
 # Requiere la clase tipos generada por Thrift, aqui estan los objetos del dominio
-require '/Users/alan/Documents/GitHub/TequilaServer/TequilaServer/gen-rb/servicios_types.rb'
+require '/home/esmeralda/Documentos/TequilaServer/TequilaServer/gen-rb/servicios_types.rb'
 
-class MapperConsumidor
+class MapperArtista
 
 	def obtener_artista(correo) 
 
@@ -53,11 +53,12 @@ class MapperConsumidor
 		consulta.execute(artista.correo, artista.nombre, artista.clave)
 		
    		consulta.free
-
+   		
    		rescue Mysql2::Error => e
    			puts e
    			puts "Error code: #{e.errno}"
 		    puts "Error message: #{e.error}"
+		    return false
 	   	ensure
 	   		# Cerramos la conexión
 	   		con.close if con

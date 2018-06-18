@@ -29,7 +29,10 @@ class ControlServicios
 
 	def insertarArtista(artista)
 		mapper = MapperArtista.new
-		return mapper.insertar_artista(artista) 
+		resultado = mapper.insertar_artista(artista) 
+		puts resultado
+		puts "jeje"
+		return resultado
 	end
 
 end
