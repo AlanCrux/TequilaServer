@@ -1,16 +1,24 @@
 $:.push('gen-rb')
+$:.push('mappers')
 $:.unshift '../../lib/rb/lib'
 
 require 'thrift'
 require 'servicios'
-require '/Users/alan/Documents/GitHub/TequilaServer/TequilaServer/mappers/MapperCancion.rb'
+require 'MapperCancion'
+require 'MapperConsumidor'
 
 # En esta clase se define el comportamiento de todos los métodos expuestos en Thrift
 class ControlServicios
-	def obtenerCanciones(criterio)
-		mapperCancion = MapperCancion.new 
-		canciones = mapperCancion.obtener_canciones(criterio)
+	def obtenerCancionesFiltradas(criterio)
+		mapper = MapperCancion.new 
+		canciones = mapper.obtener_canciones_filtradas(criterio)
 		return canciones
+	end
+
+	def obtenerConsumidor(correo)
+		mapper = MapperConsumidor.new
+		consumidor = mapper.obtener_consumidor(correo)
+		return consumidor
 	end
 
 end

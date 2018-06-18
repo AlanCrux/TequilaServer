@@ -3,6 +3,7 @@ $:.unshift '../../lib/rb/lib'
 
 require 'thrift'
 require 'servicios'
+require 'servicios_types'
 
 begin
 
@@ -12,12 +13,14 @@ begin
 
   transport.open()
   lista = []
-  lista = client.obtenerCanciones("La cumbia")
+  lista = client.obtenerCancionesFiltradas("La cumbia")
   puts lista
+
+  consumidor = client.obtenerConsumidor("alancrux_@hotmail.com")
+  puts consumidor.correo
   
   transport.close()
 
 rescue Thrift::Exception => tx
-  puts tx
   print 'Thrift::Exception: ', tx.message, "\n"
 end

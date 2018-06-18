@@ -9,17 +9,17 @@ struct CancionSL{
    5 : string artista,
    6 : string genero,
    7 : string correoArtista,
-   8 : i64 idAlbum,
-   9 : i64 idGenero
+   8 : i32 idAlbum,
+   9 : i32 idGenero
 }
 
-struc Consumidor{
+struct Consumidor{
 	1 : string correo,
 	2 : string nombre,
 	3 : string clave
 }
 
-struc Artista{
+struct Artista{
 	1 : string correo,
 	2 : string nombre,
 	3 : string clave
@@ -29,13 +29,13 @@ struc Artista{
 // Los escribi en lowerCamelCase, aunque en ruby se van a ver raros 
 service servicios {
 	//Servicio para obtener canciones
-	list<Cancion> obtenerCancionesFiltradas(1:string criterio),
+	list<CancionSL> obtenerCancionesFiltradas(1:string criterio),
 	Consumidor obtenerConsumidor(1:string correo),
 	Artista obtenerArtista(1:string correo),
 	bool insertarConsumidor(1:Consumidor consumidor),
 	bool insertarArtista(1:Artista artista),
 
-	list<Cancion> obtenerCancionesBiblioteca(1:string correo),
+	list<CancionSL> obtenerCancionesBiblioteca(1:string correo),
 
 }
 

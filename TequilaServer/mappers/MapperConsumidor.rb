@@ -1,12 +1,11 @@
-
 # Requiere la clase conexión 
-require '/Users/alan/Documents/GitHub/TequilaServer/TequilaServer/datos/Conexion.rb' 
+require_relative 'datos/Conexion' 
 # Requiere la clase tipos generada por Thrift, aqui estan los objetos del dominio
-require '/Users/alan/Documents/GitHub/TequilaServer/TequilaServer/red/gen-rb/servicios_types.rb'
+require '/Users/alan/Documents/GitHub/TequilaServer/TequilaServer/gen-rb/servicios_types.rb'
 
 class MapperConsumidor
 
-def obtener_consumidor(correo) 
+	def obtener_consumidor(correo) 
 
 		# Igualamos una variable con un objeto conexion de la clase conexión
 		conexion = Conexion.new
@@ -18,17 +17,16 @@ def obtener_consumidor(correo)
 		resultado = consulta.execute(correo)
 		
 		# Iniciamos un ciclo donde se procesa cada registro de la consulta
+		consumidor = Consumidor.new
 		resultado.each do |registro|
 	      registro["correo"] = "NULL" if registro["correo"].nil?
 	      registro["nombre"] = "NULL" if registro["nombre"].nil?
 	      registro["clave"] = "NULL" if registro["clave"].nil?
 
 	      # Creamos un objeto canción para almacenar los datos recuperados de la consulta
-	      consumidor = Consumidor.new
-	      consumidor.correo = registro["correo"],
-	      consumidor.nombre = registro["nombre"],
+	      consumidor.correo = registro["correo"]
+	      consumidor.nombre = registro["nombre"]
 	      consumidor.clave = registro["clave"]
-
    		end
 
    		consulta.free
@@ -40,11 +38,11 @@ def obtener_consumidor(correo)
 	   	ensure
 	   		# Cerramos la conexión
 	   		con.close if con
-	   		# Retornamos la lista con las canciones recuperadas
+	   		# Retornamos el objeto consumidor
 	   	return consumidor 
 	end
 
-def insertar_consumidor(consumidor) 
+	def insertar_consumidor(consumidor) 
 		conexion = Conexion.new
 		con = conexion.conectar
 
@@ -64,7 +62,5 @@ def insertar_consumidor(consumidor)
 	   		# Retornamos 
 	   	return true 
 	end
-
-
 
 end
