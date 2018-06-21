@@ -13,26 +13,21 @@ class ControlServicios
 	def obtenerCancionesFiltradas(criterio)
 		mapper = MapperCancion.new 
 		canciones = mapper.obtener_canciones_filtradas(criterio)
-		return canciones
 	end
 
 	def obtenerConsumidor(correo)
 		mapper = MapperConsumidor.new
 		consumidor = mapper.obtener_consumidor(correo)
-		return consumidor
 	end
 
 	def insertarConsumidor(consumidor)
 		mapper = MapperConsumidor.new
-		return mapper.insertar_consumidor(consumidor) 
+		mapper.insertar_consumidor(consumidor) 
 	end
 
 	def insertarArtista(artista)
 		mapper = MapperArtista.new
 		resultado = mapper.insertar_artista(artista) 
-		puts resultado
-		puts "jeje"
-		return resultado
 	end
 
 end
@@ -41,7 +36,7 @@ control = ControlServicios.new()
 processor = Servicios::Processor.new(control)
 transport = Thrift::ServerSocket.new(9090)
 transportFactory = Thrift::BufferedTransportFactory.new()
-server = Thrift::SimpleServer.new(processor, transport, transportFactory)
+server = Thrift::ThreadPoolServer.new(processor, transport, transportFactory)
 
 puts "--- Servidor en línea ---"
 server.serve()
