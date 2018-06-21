@@ -39,20 +39,22 @@ class MapperUsuario
 	end
 
 	def insertar_usuario(usuario) 
+		var = false
 		begin 
 			conexion = Conexion.new
 			con = conexion.conectar
 			consulta = con.prepare("insert into Usuario values (?,?,?,?,?)")
 			consulta.execute(usuario.correo, usuario.nombre, usuario.clave, usuario.tipo, usuario.foto)
 	   		consulta.free
-	   		true
+	   		var = true
    		rescue Mysql2::Error => e
    			puts e
    			puts "Error code: #{e.errno}"
 		    puts "Error message: #{e.error}"
-		    false
+		    var = false
 	   	ensure
 	   		con.close if con
 		end 
+		var
 	end
 end

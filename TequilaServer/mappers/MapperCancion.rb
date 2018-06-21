@@ -10,9 +10,9 @@ class MapperCancion
 			conexion = Conexion.new
 			con = conexion.conectar
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, Cancion.ruta, 
-				Album.titulo as nombreAlbum, Album.idAlbum, Artista.nombre as nombreArtista, Genero.idGenero, Genero.nombreGenero, 
-				Artista.correo from Cancion join Album join Artista join Genero 
-				where Cancion.idAlbum = Album.idAlbum and Album.correo = Artista.correo and Cancion.titulo LIKE ?")
+				Album.titulo as nombreAlbum, Album.idAlbum, Album.imagenAlbum, Usuario.nombre as nombreUsuario, Genero.idGenero, Genero.nombreGenero, 
+				Usuario.correo from Cancion join Album join Usuario join Genero 
+				where Cancion.idAlbum = Album.idAlbum and Album.correo = Usuario.correo and Cancion.titulo LIKE ?")
 			resultado = consulta.execute(criterio)
 			
 			resultado.each do |registro|
@@ -21,7 +21,8 @@ class MapperCancion
 				registro["ruta"] = "NULL" if registro["ruta"].nil?
 				registro["nombreAlbum"] = "NULL" if registro["nombreAlbum"].nil?
 				registro["idAlbum"] = "NULL" if registro["idAlbum"].nil?
-				registro["nombreArtista"] = "NULL" if registro["nombreArtista"].nil?
+				registro["imagenAlbum"] = "NULL" if registro["imagenAlbum"].nil?
+				registro["nombreUsuario"] = "NULL" if registro["nombreUsuario"].nil?
 				registro["idGenero"] = "NULL" if registro["idGenero"].nil?
 				registro["nombreGenero"] = "NULL" if registro["nombreGenero"].nil?
 				registro["correo"] = "NULL" if registro["correo"].nil?
@@ -32,10 +33,12 @@ class MapperCancion
 				cancion.ruta = registro["ruta"]
 				cancion.genero = registro["genero"]
 				cancion.album = registro["nombreAlbum"]
-				cancion.artista = registro["nombreArtista"]
+				cancion.artista = registro["nombreUsuario"]
 				cancion.correoArtista = registro["correo"]
 				cancion.idAlbum = registro["idAlbum"]
 				cancion.idGenero = registro["idGenero"]
+				cancion.genero = registro["nombreGenero"]
+				cancion.imagenAlbum = registro["imagenAlbum"]
 				canciones << cancion
 	   		end
 
@@ -51,17 +54,17 @@ class MapperCancion
 	end
 
 
-	def obtener_canciones_biblioteca(criterio) 
+	def obtener_canciones_biblioteca(correo) 
 		canciones = [] 
 		begin
 			con = Conexion.new
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, Cancion.ruta, 
-				Album.titulo as nombreAlbum, Album.idAlbum, Artista.nombre as nombreArtista, Genero.idGenero, Genero.nombreGenero, 
-				Artista.correo from Cancion join Album join Artista join Genero 
-				where Cancion.idAlbum = Album.idAlbum and Album.correo = Artista.correo 
+				Album.titulo as nombreAlbum, Album.idAlbum, Usuario.nombre as nombreUsuario, Genero.idGenero, Genero.nombreGenero, 
+				Usuario.correo from Cancion join Album join Usuario join Genero 
+				where Cancion.idAlbum = Album.idAlbum and Album.correo = Usuario.correo 
 				Consumidor.correo = Biblioteca.correo and Cancion.idCancion = Biblioteca.idCancion and 
 				Biblioteca.correo = ?")
-			resultado = consulta.execute(criterio)
+			resultado = consulta.execute(correo)
 			
 			resultado.each do |registro|
 				registro["idCancion"] = "NULL" if registro["idCancion"].nil?
@@ -69,7 +72,7 @@ class MapperCancion
 				registro["ruta"] = "NULL" if registro["ruta"].nil?
 				registro["nombreAlbum"] = "NULL" if registro["nombreAlbum"].nil?
 				registro["idAlbum"] = "NULL" if registro["idAlbum"].nil?
-				registro["nombreArtista"] = "NULL" if registro["nombreArtista"].nil?
+				registro["nombreUsuario"] = "NULL" if registro["nombreUsuario"].nil?
 				registro["idGenero"] = "NULL" if registro["idGenero"].nil?
 				registro["nombreGenero"] = "NULL" if registro["nombreGenero"].nil?
 				registro["correo"] = "NULL" if registro["correo"].nil?
@@ -80,8 +83,8 @@ class MapperCancion
 				cancion.ruta = registro["ruta"]
 				cancion.genero = registro["genero"]
 				cancion.album = registro["nombreAlbum"]
-				cancion.artista = registro["nombreArtista"]
-				cancion.correoArtista = registro["correo"]
+				cancion.Usuario = registro["nombreUsuario"]
+				cancion.correoUsuario = registro["correo"]
 				cancion.idAlbum = registro["idAlbum"]
 				cancion.idGenero = registro["idGenero"]
 				canciones << cancion
