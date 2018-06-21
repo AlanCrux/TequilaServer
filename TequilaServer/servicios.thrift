@@ -10,32 +10,30 @@ struct CancionSL{
    6 : string genero,
    7 : string correoArtista,
    8 : i32 idAlbum,
-   9 : i32 idGenero
+   9 : i32 idGenero,
+   10 : binary imagenAlbum
 }
 
-struct Consumidor{
+struct Usuario{
 	1 : string correo,
 	2 : string nombre,
-	3 : string clave
+	3 : string clave,
+	4 : string tipo,
+	5 : binary foto
 }
 
-struct Artista{
-	1 : string correo,
-	2 : string nombre,
-	3 : string clave
-}
+
 
 // Aqui vamos a definir todos los servicios que se exponen al cliente
 // Los escribi en lowerCamelCase, aunque en ruby se van a ver raros 
 service servicios {
 	//Servicio para obtener canciones
 	list<CancionSL> obtenerCancionesFiltradas(1:string criterio),
-	Consumidor obtenerConsumidor(1:string correo),
-	Artista obtenerArtista(1:string correo),
-	bool insertarConsumidor(1:Consumidor consumidor),
-	bool insertarArtista(1:Artista artista),
+	
+	Usuario obtenerUsuario(1:string correo),
+	bool insertarUsuario(1:Usuario usuario),
 
-	list<CancionSL> obtenerCancionesBiblioteca(1:string correo),
+	list<CancionSL> obtenerCancionesBiblioteca(1:string correo)
 
 }
 

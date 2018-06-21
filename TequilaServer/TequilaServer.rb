@@ -5,8 +5,7 @@ $:.unshift '../../lib/rb/lib'
 require 'thrift'
 require 'servicios'
 require 'MapperCancion'
-require 'MapperConsumidor'
-require 'MapperArtista'
+require 'MapperUsuario'
 
 # En esta clase se define el comportamiento de todos los métodos expuestos en Thrift
 class ControlServicios
@@ -15,19 +14,14 @@ class ControlServicios
 		canciones = mapper.obtener_canciones_filtradas(criterio)
 	end
 
-	def obtenerConsumidor(correo)
-		mapper = MapperConsumidor.new
-		consumidor = mapper.obtener_consumidor(correo)
+	def obtenerUsuario(correo)
+		mapper = MapperUsuario.new
+		usuario = mapper.obtener_usuario(correo)
 	end
 
-	def insertarConsumidor(consumidor)
-		mapper = MapperConsumidor.new
-		mapper.insertar_consumidor(consumidor) 
-	end
-
-	def insertarArtista(artista)
-		mapper = MapperArtista.new
-		resultado = mapper.insertar_artista(artista) 
+	def insertarUsuario(usuario)
+		mapper = MapperUsuario.new
+		mapper.insertar_usuario(usuario) 
 	end
 
 end
