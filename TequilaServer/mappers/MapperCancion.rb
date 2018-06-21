@@ -27,11 +27,11 @@ class MapperCancion
 				registro["nombreGenero"] = "NULL" if registro["nombreGenero"].nil?
 				registro["correo"] = "NULL" if registro["correo"].nil?
 
+
 				cancion = CancionSL.new 
 				cancion.idCancion = registro["idCancion"]
 				cancion.titulo = registro["nombreCancion"]
 				cancion.ruta = registro["ruta"]
-				cancion.genero = registro["genero"]
 				cancion.album = registro["nombreAlbum"]
 				cancion.artista = registro["nombreUsuario"]
 				cancion.correoArtista = registro["correo"]
@@ -59,10 +59,10 @@ class MapperCancion
 		begin
 			con = Conexion.new
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, Cancion.ruta, 
-				Album.titulo as nombreAlbum, Album.idAlbum, Usuario.nombre as nombreUsuario, Genero.idGenero, Genero.nombreGenero, 
+				Album.titulo as nombreAlbum, Album.idAlbum, Album.imagenAlbum, Usuario.nombre as nombreUsuario, Genero.idGenero, Genero.nombreGenero, 
 				Usuario.correo from Cancion join Album join Usuario join Genero 
-				where Cancion.idAlbum = Album.idAlbum and Album.correo = Usuario.correo 
-				Consumidor.correo = Biblioteca.correo and Cancion.idCancion = Biblioteca.idCancion and 
+				where Cancion.idAlbum = Album.idAlbum and Album.correo = Usuario.correo and 
+				Usuario.correo = Biblioteca.correo and Cancion.idCancion = Biblioteca.idCancion and 
 				Biblioteca.correo = ?")
 			resultado = consulta.execute(correo)
 			
@@ -72,21 +72,23 @@ class MapperCancion
 				registro["ruta"] = "NULL" if registro["ruta"].nil?
 				registro["nombreAlbum"] = "NULL" if registro["nombreAlbum"].nil?
 				registro["idAlbum"] = "NULL" if registro["idAlbum"].nil?
+				registro["imagenAlbum"] = "NULL" if registro["imagenAlbum"].nil?
 				registro["nombreUsuario"] = "NULL" if registro["nombreUsuario"].nil?
 				registro["idGenero"] = "NULL" if registro["idGenero"].nil?
 				registro["nombreGenero"] = "NULL" if registro["nombreGenero"].nil?
 				registro["correo"] = "NULL" if registro["correo"].nil?
-
+				
 				cancion = CancionSL.new 
 				cancion.idCancion = registro["idCancion"]
 				cancion.titulo = registro["nombreCancion"]
 				cancion.ruta = registro["ruta"]
-				cancion.genero = registro["genero"]
 				cancion.album = registro["nombreAlbum"]
-				cancion.Usuario = registro["nombreUsuario"]
-				cancion.correoUsuario = registro["correo"]
+				cancion.artista = registro["nombreUsuario"]
+				cancion.correoArtista = registro["correo"]
 				cancion.idAlbum = registro["idAlbum"]
 				cancion.idGenero = registro["idGenero"]
+				cancion.genero = registro["nombreGenero"]
+				cancion.imagenAlbum = registro["imagenAlbum"]
 				canciones << cancion
 	   		end
 

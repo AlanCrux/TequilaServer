@@ -45,7 +45,7 @@ class MapperUsuario
 			con = conexion.conectar
 			consulta = con.prepare("insert into Usuario values (?,?,?,?,?)")
 			consulta.execute(usuario.correo, usuario.nombre, usuario.clave, usuario.tipo, usuario.foto)
-	   		consulta.free
+	   		
 	   		var = true
    		rescue Mysql2::Error => e
    			puts e
