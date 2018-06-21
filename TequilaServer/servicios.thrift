@@ -22,18 +22,10 @@ struct Usuario{
 	5 : binary foto
 }
 
-
-
-// Aqui vamos a definir todos los servicios que se exponen al cliente
-// Los escribi en lowerCamelCase, aunque en ruby se van a ver raros 
 service servicios {
-	//Servicio para obtener canciones
 	list<CancionSL> obtenerCancionesFiltradas(1:string criterio),
-	
 	Usuario obtenerUsuario(1:string correo),
 	bool insertarUsuario(1:Usuario usuario),
-
 	list<CancionSL> obtenerCancionesBiblioteca(1:string correo)
-
 }
 
