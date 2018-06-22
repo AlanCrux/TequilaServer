@@ -11,7 +11,7 @@ class MapperCancion
 			con = conexion.conectar
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, Cancion.ruta, 
 				Album.titulo as nombreAlbum, Album.idAlbum, Album.imagenAlbum, Usuario.nombre as nombreUsuario, Genero.idGenero, Genero.nombreGenero, 
-				Usuario.correo from Cancion join Album join Usuario join Genero 
+				Usuario.correo, Puntuacion.puntuacion from Cancion join Album join Usuario join Genero join Puntuacion
 				where Cancion.idAlbum = Album.idAlbum and Album.correo = Usuario.correo and Cancion.titulo LIKE ?")
 			resultado = consulta.execute(criterio)
 			
@@ -26,6 +26,7 @@ class MapperCancion
 				registro["idGenero"] = "NULL" if registro["idGenero"].nil?
 				registro["nombreGenero"] = "NULL" if registro["nombreGenero"].nil?
 				registro["correo"] = "NULL" if registro["correo"].nil?
+				registro["puntuacion"] = "NULL" if registro["puntuacion"].nil?
 
 
 				cancion = CancionSL.new 
@@ -39,6 +40,7 @@ class MapperCancion
 				cancion.idGenero = registro["idGenero"]
 				cancion.genero = registro["nombreGenero"]
 				cancion.imagenAlbum = registro["imagenAlbum"]
+				cancion.puntuacion = registro["puntuacion"]
 				canciones << cancion
 	   		end
 
@@ -60,7 +62,7 @@ class MapperCancion
 			con = Conexion.new
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, Cancion.ruta, 
 				Album.titulo as nombreAlbum, Album.idAlbum, Album.imagenAlbum, Usuario.nombre as nombreUsuario, Genero.idGenero, Genero.nombreGenero, 
-				Usuario.correo from Cancion join Album join Usuario join Genero 
+				Usuario.correo, Puntuacion.puntuacion from Cancion join Album join Usuario join Genero join Puntuacion  
 				where Cancion.idAlbum = Album.idAlbum and Album.correo = Usuario.correo and 
 				Usuario.correo = Biblioteca.correo and Cancion.idCancion = Biblioteca.idCancion and 
 				Biblioteca.correo = ?")
@@ -77,6 +79,7 @@ class MapperCancion
 				registro["idGenero"] = "NULL" if registro["idGenero"].nil?
 				registro["nombreGenero"] = "NULL" if registro["nombreGenero"].nil?
 				registro["correo"] = "NULL" if registro["correo"].nil?
+				registro["puntuacion"] = "NULL" if registro["puntuacion"].nil?
 				
 				cancion = CancionSL.new 
 				cancion.idCancion = registro["idCancion"]
@@ -89,6 +92,7 @@ class MapperCancion
 				cancion.idGenero = registro["idGenero"]
 				cancion.genero = registro["nombreGenero"]
 				cancion.imagenAlbum = registro["imagenAlbum"]
+				cancion.puntuacion = registro["puntuacion"]
 				canciones << cancion
 	   		end
 

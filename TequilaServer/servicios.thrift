@@ -11,7 +11,8 @@ struct CancionSL{
    7 : string correoArtista,
    8 : i32 idAlbum,
    9 : i32 idGenero,
-   10 : binary imagenAlbum
+   10 : binary imagenAlbum,
+   11 : i32 puntuacion
 }
 
 struct Usuario{
@@ -20,6 +21,12 @@ struct Usuario{
 	3 : string clave,
 	4 : string tipo,
 	5 : binary foto
+}
+
+struct Puntuacion{
+	1 : i32 idCancion,
+	2 : string correo,
+	3 : i32 puntuacion
 }
 
 service servicios {
