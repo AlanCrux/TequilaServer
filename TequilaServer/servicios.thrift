@@ -29,10 +29,20 @@ struct Puntuacion{
 	3 : i32 puntuacion
 }
 
+struct Playlist{
+	1 : string nombre,
+	2 : string descripcion,
+	3 : binary imagen,
+	4 : string correo,
+	5 : i32 idPlaylist
+}
+
 service servicios {
 	list<CancionSL> obtenerCancionesFiltradas(1:string criterio),
 	Usuario obtenerUsuario(1:string correo),
 	bool insertarUsuario(1:Usuario usuario),
 	list<CancionSL> obtenerCancionesBiblioteca(1:string correo)
+
+	binary bajarCancion(1:string ruta)
 }
 
