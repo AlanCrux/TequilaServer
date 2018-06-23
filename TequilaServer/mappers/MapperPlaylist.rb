@@ -27,7 +27,7 @@ class MapperPlaylist
 				playlist.correo = registro["correo"]
 				playlist.idPlaylist = registro["idPlaylist"]
 				playlists << playlist
-	   		end
+			end
 
 	   		resultado.free
 
@@ -40,15 +40,16 @@ class MapperPlaylist
 	   	playlists 
 	end
 
-		def obtener_canciones_playlist(idPlaylist) 
+	def obtener_canciones_playlist(idPlaylist) 
 		canciones = [] 
 		begin
 			conexion = Conexion.new
 			con = conexion.conectar
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, 
-				Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.imagenAlbum, 
+				Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento,
+				Album.companiaDiscografica, Album.imagenAlbum, 
 				Usuario.nombre as nombreUsuario,  Genero.idGenero, Genero.nombreGenero,  
-				Usuario.correo from Cancion join Album join Usuario join Genero join Playlist join Contenido 
+				Usuario.correo from Cancion join Album join Usuario join Genero join Contenido join Playlist
 				where Cancion.idAlbum = Album.idAlbum and Genero.idGenero = Cancion.idGenero 
 				and Album.correo = Usuario.correo and Cancion.idCancion = Contenido.idCancion and 
 				Contenido.idPlaylist = Playlist.idPlaylist and Contenido.idPlaylist = ?")
@@ -93,13 +94,53 @@ class MapperPlaylist
 	   	end
 	   	canciones 
 	end
-def insertar_playlist(playlist) 
+	def insertar_playlist(playlist) 
+			var = false
+			begin 
+				conexion = Conexion.new
+				con = conexion.conectar
+				consulta = con.prepare("insert into Playlist values (?,?,?,?)")
+				consulta.execute(playlist.nombre, playlist.descripcion, playlist.imagen, playlist.correo)
+		   		
+		   		var = true
+	   		rescue Mysql2::Error => e
+	   			puts e
+	   			puts "Error code: #{e.errno}"
+			    puts "Error message: #{e.error}"
+			    var = false
+		   	ensure
+		   		con.close if con
+			end 
+			var
+	end
+
+	def actualizar_playlist(playlist) 
+			var = false
+			begin 
+				conexion = Conexion.new
+				con = conexion.conectar
+				consulta = con.prepare("update Playlist set nombre = ?, descripcion = ?, imagen = ?, correo = ?")
+				consulta.execute(playlist.nombre, playlist.descripcion, playlist.imagen, playlist.correo)
+		   		
+		   		var = true
+	   		rescue Mysql2::Error => e
+	   			puts e
+	   			puts "Error code: #{e.errno}"
+			    puts "Error message: #{e.error}"
+			    var = false
+		   	ensure
+		   		con.close if con
+			end 
+			var
+	end
+
+	def eliminar_playlist(idPlaylist) 
 		var = false
 		begin 
 			conexion = Conexion.new
 			con = conexion.conectar
-			consulta = con.prepare("insert into Playlist values (?,?,?,?)")
-			consulta.execute(playlist.nombre, playlist.descripcion, playlist.imagen, playlist.correo)
+			consulta = con.prepare("delete from Playlist where idPlaylist = ?")
+			consulta.execute(idPlaylist)
 	   		
 	   		var = true
    		rescue Mysql2::Error => e
@@ -113,13 +154,33 @@ def insertar_playlist(playlist)
 		var
 	end
 
-def insertar_playlist(playlist) 
+	def insertar_cancion_playlist(contenido) 
+			var = false
+			begin 
+				conexion = Conexion.new
+				con = conexion.conectar
+				consulta = con.prepare("insert into Contenido values (?,?,)")
+				consulta.execute(contenido.idPlaylist, contenido.idCancion)
+		   		
+		   		var = true
+	   		rescue Mysql2::Error => e
+	   			puts e
+	   			puts "Error code: #{e.errno}"
+			    puts "Error message: #{e.error}"
+			    var = false
+		   	ensure
+		   		con.close if con
+			end 
+			var
+	end
+
+	def eliminar_cancion_playlist(idCancion) 
 		var = false
 		begin 
 			conexion = Conexion.new
 			con = conexion.conectar
-			consulta = con.prepare("update Playlist set nombre = ?, descripcion = ?, imagen = ?, correo = ?")
-			consulta.execute(playlist.nombre, playlist.descripcion, playlist.imagen, playlist.correo)
+			consulta = con.prepare("delete from Contenido where idCancion = ?")
+			consulta.execute(idCancion)
 	   		
 	   		var = true
    		rescue Mysql2::Error => e
@@ -132,6 +193,5 @@ def insertar_playlist(playlist)
 		end 
 		var
 	end
-
 
 end

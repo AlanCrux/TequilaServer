@@ -7,6 +7,10 @@ require 'servicios'
 require 'MapperCancion'
 require 'MapperUsuario'
 require 'MapperPlaylist'
+require 'MapperHistorial'
+require 'MapperBiblioteca'
+
+
 
 # En esta clase se define el comportamiento de todos los métodos expuestos en Thrift
 class ControlServicios
@@ -35,13 +39,66 @@ class ControlServicios
 		mapper.obtener_playlists(correo)
 	end
 
+	def obtenerCancionesPlaylist(idPlaylist)
+		mapper = MapperPlaylist.new	
+		mapper.obtener_canciones_playlist(idPlaylist)
+	end
 
+	def insertarPlaylist(playlist)
+		mapper = MapperPlaylist.new	
+		mapper.insertar_playlist(playlist)
+	end
+
+	def actualizarPlaylist(playlist)
+		mapper = MapperPlaylist.new	
+		mapper.actualizar_playlist(playlist)
+	end
+
+	def elimnarPlaylist(idPlaylist)
+		mapper = MapperPlaylist.new	
+		mapper.eliminar_playlist(idPlaylist)
+	end
+
+	def insertarCancionPlaylist(contenido)
+		mapper = MapperPlaylist.new	
+		mapper.insertar_cancion_playlist(contenido)
+	end
+
+	def elimnarCancionPlaylist(idCancion)
+		mapper = MapperPlaylist.new	
+		mapper.eliminar_cancion_playlist(idCancion)
+	end
+
+	def obtenerHistorial(correo)
+		mapper = MapperHistorial.new	
+		mapper.obtener_canciones_historial(correo) 
+	end
+
+	def insertarCancionHistorial(historial)
+		mapper = MapperHistorial.new	
+		mapper.insertar_cancion_historial(historial)
+	end
+
+	def eliminarCancionHistorial(idCancion)
+		mapper = MapperHistorial.new	
+		mapper.eliminar_cancion_historial(idCancion)
+	end
+
+	def insertarCancionBiblioteca(biblioteca)
+		mapper = MapperBiblioteca.new	
+		mapper.insertar_cancion_biblioteca(biblioteca)
+	end
+
+	def eliminarCancionBiblioteca(idCancion)
+		mapper = MapperBiblioteca.new	
+		mapper.eliminar_cancion_biblioteca(idCancion)
+	end
 end
 
 control = ControlServicios.new()
 
-prueba = control.bajarCancion("/home/esmeralda/TequilaMusic/Repositorio/Los_Angeles_Azules_De_Plaza_en_Plaza/La_Cumbia_del_Infinito.mp3")
-puts prueba
+#prueba = control.bajarCancion("/home/esmeralda/TequilaMusic/Repositorio/Los_Angeles_Azules_De_Plaza_en_Plaza/La_Cumbia_del_Infinito.mp3")
+#puts prueba
 
 processor = Servicios::Processor.new(control)
 transport = Thrift::ServerSocket.new(9090)
