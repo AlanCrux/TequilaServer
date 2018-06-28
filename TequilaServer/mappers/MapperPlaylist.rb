@@ -1,6 +1,6 @@
 require_relative 'datos/Conexion' 
-require '/home/esmeralda/Documentos/TequilaServer/TequilaServer/gen-rb/servicios_types.rb'
-#require '/Users/alan/Documents/GitHub/TequilaServer/TequilaServer/gen-rb/servicios_types.rb'
+#require '/home/esmeralda/Documentos/TequilaServer/TequilaServer/gen-rb/servicios_types.rb'
+require '/Users/alan/Documents/GitHub/TequilaServer/TequilaServer/gen-rb/servicios_types.rb'
 
 class MapperPlaylist
 	def obtener_playlists(correo) 
@@ -99,7 +99,7 @@ class MapperPlaylist
 			begin 
 				conexion = Conexion.new
 				con = conexion.conectar
-				consulta = con.prepare("insert into Playlist values (?,?,?,?)")
+				consulta = con.prepare("insert into Playlist(nombre,descripcion,imagen,correo) values (?,?,?,?)")
 				consulta.execute(playlist.nombre, playlist.descripcion, playlist.imagen, playlist.correo)
 		   		
 		   		var = true
@@ -119,8 +119,8 @@ class MapperPlaylist
 			begin 
 				conexion = Conexion.new
 				con = conexion.conectar
-				consulta = con.prepare("update Playlist set nombre = ?, descripcion = ?, imagen = ?, correo = ?")
-				consulta.execute(playlist.nombre, playlist.descripcion, playlist.imagen, playlist.correo)
+				consulta = con.prepare("update Playlist set nombre = ?, descripcion = ?, imagen = ?, correo = ? where idPlaylist = ?")
+				consulta.execute(playlist.nombre, playlist.descripcion, playlist.imagen, playlist.correo, playlist.idPlaylist)
 		   		
 		   		var = true
 	   		rescue Mysql2::Error => e
@@ -159,7 +159,7 @@ class MapperPlaylist
 			begin 
 				conexion = Conexion.new
 				con = conexion.conectar
-				consulta = con.prepare("insert into Contenido values (?,?,)")
+				consulta = con.prepare("insert into Contenido values (?,?)")
 				consulta.execute(contenido.idPlaylist, contenido.idCancion)
 		   		
 		   		var = true

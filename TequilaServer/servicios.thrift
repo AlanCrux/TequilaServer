@@ -1,6 +1,5 @@
 typedef i64 int 
 
-//Aqui se definen las estructuras que se van a utilizar
 struct CancionSL{
    1 : i32 idCancion,
    2 : string titulo,
@@ -79,9 +78,6 @@ service servicios {
 
 	bool insertarCancionBiblioteca(1:Biblioteca biblioteca),
 	bool eliminarCancionBiblioteca(1:i32 idCancion)
-
-
-
 
 }
 
