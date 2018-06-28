@@ -10,7 +10,6 @@ class MapperPuntuacion
 			con = conexion.conectar
 			consulta = con.prepare("insert into Puntuacion values (?,?,?)")
 			consulta.execute(puntuacion.idCancion, puntuacion.correo, puntuacion.puntuacion)
-	   		
 	   		var = true
    		rescue Mysql2::Error => e
    			puts e

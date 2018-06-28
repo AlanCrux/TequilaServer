@@ -121,7 +121,6 @@ class MapperPlaylist
 				con = conexion.conectar
 				consulta = con.prepare("update Playlist set nombre = ?, descripcion = ?, imagen = ?, correo = ? where idPlaylist = ?")
 				consulta.execute(playlist.nombre, playlist.descripcion, playlist.imagen, playlist.correo, playlist.idPlaylist)
-		   		
 		   		var = true
 	   		rescue Mysql2::Error => e
 	   			puts e

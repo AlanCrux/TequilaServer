@@ -9,14 +9,12 @@ class MapperHistorial
 		begin
 			conexion = Conexion.new
 			con = conexion.conectar
-			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, 
-				Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento,
-				Album.companiaDiscografica, Album.imagenAlbum, Historial.fecha, 
-				Usuario.nombre as nombreUsuario,  Genero.idGenero, Genero.nombreGenero,  
-				Usuario.correo from Cancion join Album join Usuario join Genero join Historial
-				where Cancion.idAlbum = Album.idAlbum and Genero.idGenero = Cancion.idGenero 
-				and Album.correo = Usuario.correo and Cancion.idCancion = Historial.idCancion and 
-				Historial.correo = Usuario.correo and Historial.correo = ? ")
+			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, Cancion.ruta,  Album.titulo as nombreAlbum, 
+			Album.idAlbum, Album.anioLanzamiento, Album.companiaDiscografica, Album.imagenAlbum, Historial.fecha, 
+			Usuario.nombre as nombreUsuario,  Genero.idGenero, Genero.nombreGenero, Usuario.correo 
+			from Cancion join Album join Usuario join Genero join Historial where Cancion.idAlbum = Album.idAlbum 
+			and Genero.idGenero = Cancion.idGenero and Album.correo = Usuario.correo and 
+			Cancion.idCancion = Historial.idCancion and Historial.correo = ? ")
 			resultado = consulta.execute(correo)
 			
 			resultado.each do |registro|

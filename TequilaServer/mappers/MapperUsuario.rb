@@ -23,7 +23,6 @@ class MapperUsuario
 		      usuario.clave = registro["clave"]
 		      usuario.tipo = registro["tipo"]
 		      usuario.foto = registro["foto"]
-
 	   		end
 
 	   		resultado.free
