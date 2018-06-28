@@ -26,12 +26,6 @@ struct Usuario{
 	5 : binary foto
 }
 
-struct Puntuacion{
-	1 : i32 idCancion,
-	2 : string correo,
-	3 : i32 puntuacion
-}
-
 struct Playlist{
 	1 : string nombre,
 	2 : string descripcion,
@@ -68,6 +62,11 @@ struct AlbumSL{
 	7 : string companiaDiscografica
 }
 
+struct Genero{
+	1 : i32 idGenero,
+	2 : string nombreGenero
+}
+
 
 service servicios {
 	list<CancionSL> obtenerCancionesFiltradas(1:string criterio),
@@ -93,6 +92,14 @@ service servicios {
 
 	list<AlbumSL> obtenerAlbumesUsuario(1:string correo),
 	list<CancionSL> obtenerCancionesAlbum(1:i32 idAlbum),
+
+	list<Usuario> obtenerArtistasUsuario(1:string correo),
+	list<CancionSL> obtenerCancionesArtista(1:string correo),
+
+	list<Genero> obtenerGenerosUsuario(1:string correo),
+	list<CancionSL> obtenerCancionesGenero(1:i32 idGenero),
+	list<CancionSL> crearRadio(1:i32 idGenero)
+
 
 
 

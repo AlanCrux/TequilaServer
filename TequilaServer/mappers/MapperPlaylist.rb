@@ -48,8 +48,9 @@ class MapperPlaylist
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, 
 				Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento,
 				Album.companiaDiscografica, Album.imagenAlbum, 
-				Usuario.nombre as nombreUsuario,  Genero.idGenero, Genero.nombreGenero,  
-				Usuario.correo from Cancion join Album join Usuario join Genero join Contenido join Playlist
+				Usuario.nombre as nombreUsuario,  Genero.idGenero, Genero.nombreGenero,	Usuario.correo, 
+				Biblioteca.puntuacion, Biblioteca.descargada  
+				from Cancion join Album join Usuario join Genero join Biblioteca
 				where Cancion.idAlbum = Album.idAlbum and Genero.idGenero = Cancion.idGenero 
 				and Album.correo = Usuario.correo and Cancion.idCancion = Contenido.idCancion and 
 				Contenido.idPlaylist = Playlist.idPlaylist and Contenido.idPlaylist = ?")
@@ -66,8 +67,10 @@ class MapperPlaylist
 				registro["idGenero"] = "NULL" if registro["idGenero"].nil?
 				registro["nombreGenero"] = "NULL" if registro["nombreGenero"].nil?
 				registro["correo"] = "NULL" if registro["correo"].nil?
+				registro["anioLanzamiento"] = "NULL" if registro["anioLanzamiento"].nil?
+				registro["companiaDiscografica"] = "NULL" if registro["companiaDiscografica"].nil?
 				registro["puntuacion"] = "NULL" if registro["puntuacion"].nil?
-
+				registro["descargada"] = "NULL" if registro["descargada"].nil?
 
 				cancion = CancionSL.new 
 				cancion.idCancion = registro["idCancion"]
@@ -80,7 +83,10 @@ class MapperPlaylist
 				cancion.idGenero = registro["idGenero"]
 				cancion.genero = registro["nombreGenero"]
 				cancion.imagenAlbum = registro["imagenAlbum"]
+				cancion.anioLanzamiento = registro["anioLanzamiento"]
+				cancion.companiaDiscografica = registro["companiaDiscografica"]
 				cancion.puntuacion = registro["puntuacion"]
+				cancion.descargada = registro["descargada"]
 				canciones << cancion
 	   		end
 

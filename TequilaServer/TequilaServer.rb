@@ -9,6 +9,8 @@ require 'MapperUsuario'
 require 'MapperPlaylist'
 require 'MapperHistorial'
 require 'MapperBiblioteca'
+require 'MapperAlbum'
+require 'MapperGenero'
 
 
 
@@ -93,13 +95,44 @@ class ControlServicios
 		mapper = MapperBiblioteca.new	
 		mapper.eliminar_cancion_biblioteca(idCancion)
 	end
+
+	def obtenerAlbumesUsuario(correo)
+		mapper = MapperAlbum.new	
+		mapper.obtener_albumes_usuario(correo) 
+	end
+
+	def obtenerCancionesAlbum(idAlbum)
+		mapper = MapperAlbum.new	
+		mapper.obtener_canciones_album(idAlbum) 
+	end
+
+	def obtenerArtistasUsuario(correo)
+		mapper = MapperUsuario.new	
+		mapper.obtener_artistas_usuario(correo) 
+	end
+
+	def obtenerCancionesArtista(correo)
+		mapper = MapperUsuario.new	
+		mapper.obtener_canciones_artista(correo) 
+	end
+
+	def obtenerGenerosUsuario(correo)
+		mapper = MapperGenero.new	
+		mapper.obtener_generos_usuario(correo) 
+	end
+
+	def obtenerCancionesGenero(idGenero)
+		mapper = MapperGenero.new	
+		mapper.obtener_canciones_genero(idGenero) 
+	end
+
+	def crearRadio(idGenero)
+		mapper = MapperGenero.new	
+		mapper.crear_radio(idGenero)
+	end
 end
 
 control = ControlServicios.new()
-
-#prueba = control.bajarCancion("/home/esmeralda/TequilaMusic/Repositorio/Los_Angeles_Azules_De_Plaza_en_Plaza/La_Cumbia_del_Infinito.mp3")
-#puts prueba
-
 processor = Servicios::Processor.new(control)
 transport = Thrift::ServerSocket.new(9090)
 transportFactory = Thrift::BufferedTransportFactory.new()
