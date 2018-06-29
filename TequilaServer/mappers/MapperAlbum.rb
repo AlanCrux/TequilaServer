@@ -115,9 +115,8 @@ class MapperAlbum
 			con = conexion.conectar
 			consulta = con.prepare("SELECT Album.idAlbum, Album.titulo, Album.imagenAlbum, Album.correo, 
 				Album.anioLanzamiento, Album.companiaDiscografica
-				from Album join Cancion join Usuario 
-				where Usuario.correo = Album.correo and Cancion.idAlbum = Album.idAlbum and 
-				Album.correo = ?")
+				from Album join Usuario 
+				where Album.correo = ?")
 			resultado = consulta.execute(correo)
 			
 			resultado.each do |registro|
