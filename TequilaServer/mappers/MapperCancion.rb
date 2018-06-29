@@ -63,7 +63,8 @@ class MapperCancion
 	def obtener_canciones_biblioteca(correo) 
 		canciones = [] 
 		begin
-			con = Conexion.new
+			conexion = Conexion.new
+			con = conexion.conectar
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, 
 				Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento,
 				Album.companiaDiscografica, Album.imagenAlbum, 
@@ -124,7 +125,8 @@ class MapperCancion
 	def obtener_canciones_del_artista(correo) 
 		canciones = [] 
 		begin
-			con = Conexion.new
+			conexion = Conexion.new
+			con = conexion.conectar
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, 
 				Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento,
 				Album.companiaDiscografica, Album.imagenAlbum, 
@@ -163,9 +165,7 @@ class MapperCancion
 				cancion.companiaDiscografica = registro["companiaDiscografica"]
 				canciones << cancion
 	   		end
-
-	   		consulta.free
-
+	   		resultado.free
    		rescue Mysql2::Error => e
    			puts "Error code: #{e.errno}"
 		    puts "Error message: #{e.error}"

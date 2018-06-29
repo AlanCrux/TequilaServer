@@ -50,7 +50,8 @@ class MapperAlbum
 	def obtener_canciones_album(idAlbum) 
 		canciones = [] 
 		begin
-			con = Conexion.new
+			conexion = Conexion.new
+			con = conexion.conectar
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, 
 			Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento, 
 			Album.companiaDiscografica, Album.imagenAlbum, Usuario.nombre as nombreUsuario, 
@@ -151,7 +152,8 @@ class MapperAlbum
 	def obtener_canciones_album_artista(idAlbum) 
 		canciones = [] 
 		begin
-			con = Conexion.new
+			conexion = Conexion.new
+			con = conexion.conectar
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, 
 			Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento, 
 			Album.companiaDiscografica, Album.imagenAlbum, Genero.idGenero, Genero.nombreGenero, 

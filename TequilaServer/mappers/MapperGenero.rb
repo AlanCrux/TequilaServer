@@ -39,7 +39,8 @@ class MapperGenero
 	def obtener_canciones_genero(idGenero) 
 		canciones = [] 
 		begin
-			con = Conexion.new
+			conexion = Conexion.new
+			con = conexion.conectar
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, 
 			Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento, 
 			Album.companiaDiscografica, Album.imagenAlbum, Usuario.nombre as nombreUsuario, 
@@ -85,7 +86,7 @@ class MapperGenero
 				canciones << cancion
 	   		end
 
-	   		consulta.free
+	   		resultado.free
 
    		rescue Mysql2::Error => e
    			puts "Error code: #{e.errno}"
@@ -99,7 +100,8 @@ class MapperGenero
 	def crear_radio(idGenero) 
 		canciones = [] 
 		begin
-			con = Conexion.new
+			conexion = Conexion.new
+			con = conexion.conectar
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, 
 			Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento, 
 			Album.companiaDiscografica, Album.imagenAlbum, Usuario.nombre as nombreUsuario, 
@@ -143,7 +145,7 @@ class MapperGenero
 				canciones << cancion
 	   		end
 
-	   		consulta.free
+	   		resultado.free
 
    		rescue Mysql2::Error => e
    			puts "Error code: #{e.errno}"
