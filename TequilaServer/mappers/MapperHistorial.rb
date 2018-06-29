@@ -14,7 +14,7 @@ class MapperHistorial
 			Usuario.nombre as nombreUsuario,  Genero.idGenero, Genero.nombreGenero, Usuario.correo 
 			from Cancion join Album join Usuario join Genero join Historial where Cancion.idAlbum = Album.idAlbum 
 			and Genero.idGenero = Cancion.idGenero and Album.correo = Usuario.correo and 
-			Cancion.idCancion = Historial.idCancion and Historial.correo = ? ")
+			Cancion.idCancion = Historial.idCancion and Historial.correo = ? order by Historial.fecha DESC")
 			resultado = consulta.execute(correo)
 			
 			resultado.each do |registro|
