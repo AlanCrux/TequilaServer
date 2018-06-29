@@ -106,9 +106,9 @@ class ControlServicios
 		mapper.obtener_artistas_usuario(correo) 
 	end
 
-	def obtenerCancionesArtista(correo)
+	def obtenerCancionesArtista(correoCliente, correoArtista)
 		mapper = MapperUsuario.new	
-		mapper.obtener_canciones_artista(correo) 
+		mapper.obtener_canciones_artista(correoCliente, correoArtista) 
 	end
 
 	def obtenerGenerosUsuario(correo)

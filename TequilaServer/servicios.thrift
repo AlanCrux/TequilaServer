@@ -112,7 +112,7 @@ service servicios {
 	list<CancionSL> obtenerCancionesAlbum(1:i32 idAlbum),
 
 	list<Usuario> obtenerArtistasUsuario(1:string correo),
-	list<CancionSL> obtenerCancionesArtista(1:string correo),
+	list<CancionSL> obtenerCancionesArtista(1:string correoCliente, 2:string correoArtista),
 
 	list<Genero> obtenerGenerosUsuario(1:string correo),
 	list<CancionSL> obtenerCancionesGenero(1:i32 idGenero),

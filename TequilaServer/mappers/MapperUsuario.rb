@@ -92,20 +92,19 @@ def obtener_artistas_usuario(correo)
 	   	artistas 
 	end
 
-	def obtener_canciones_artista(correo) 
+	def obtener_canciones_artista(correoCliente, correoArtista) 
 		canciones = [] 
 		begin
 			con = Conexion.new
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, 
-				Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento,
-				Album.companiaDiscografica, Album.imagenAlbum, 
-				Usuario.nombre as nombreUsuario,  Genero.idGenero, Genero.nombreGenero,	Usuario.correo, 
-				Biblioteca.puntuacion, Biblioteca.descargada  
-				from Cancion join Album join Usuario join Genero join Biblioteca
-				where Cancion.idAlbum = Album.idAlbum and Genero.idGenero = Cancion.idGenero 
-				and Album.correo = Usuario.correo and Cancion.idCancion = Biblioteca.idCancion and 
-				Usuario.correo = ?")
-			resultado = consulta.execute(correo)
+			Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento,
+			Album.companiaDiscografica, Album.imagenAlbum, 
+			Usuario.nombre as nombreUsuario,  Genero.idGenero, Genero.nombreGenero,	Usuario.correo
+			from Cancion join Album join Usuario join Genero join Biblioteca
+			where Cancion.idAlbum = Album.idAlbum and Genero.idGenero = Cancion.idGenero and 
+			Cancion.idCancion = Biblioteca.idCancion and Album.correo = ? 
+			And Biblioteca.correo = ?")
+			resultado = consulta.execute(correoArtista, correoCliente)
 			
 			resultado.each do |registro|
 				registro["idCancion"] = "NULL" if registro["idCancion"].nil?
