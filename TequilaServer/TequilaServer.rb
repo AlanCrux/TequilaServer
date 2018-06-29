@@ -160,6 +160,17 @@ class ControlServicios
 		mapper = MapperBiblioteca.new	
 		mapper.actualizar_puntuacion(biblioteca) 
 	end
+
+	def obtenerGeneros()
+		mapper = MapperGenero.new	
+		mapper.obtener_generos() 
+	end
+
+	def actualizarBiblioteca(biblioteca)
+		mapper = MapperBiblioteca.new	
+		mapper.actualizar_biblioteca(biblioteca) 
+	end
+
 end
 
 control = ControlServicios.new()

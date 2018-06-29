@@ -124,6 +124,9 @@ service servicios {
 	bool insertarAlbum(1:Album album),
 	bool insertarCancion(1:Cancion cancion),
 
-	bool actualizarPuntuacion(1:Biblioteca biblioteca)
+	bool actualizarPuntuacion(1:Biblioteca biblioteca),
+	bool actualizarBiblioteca(1:Biblioteca biblioteca),
+	list<Genero> obtenerGeneros(),
+
 }
 

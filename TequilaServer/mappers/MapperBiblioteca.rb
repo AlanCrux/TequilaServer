@@ -62,4 +62,23 @@ class MapperBiblioteca
 		var
 	end
 
+	def actualizar_biblioteca(biblioteca) 
+		var = false
+		begin 
+			conexion = Conexion.new
+			con = conexion.conectar
+			consulta = con.prepare("UPDATE Biblioteca set descargada = ? where idCancion = ? and correo = ?")
+			consulta.execute(biblioteca.descargada, biblioteca.idCancion, biblioteca.correo)
+	   		var = true
+			rescue Mysql2::Error => e
+				puts e
+				puts "Error code: #{e.errno}"
+		    puts "Error message: #{e.error}"
+		    var = false
+	   	ensure
+	   		con.close if con
+		end 
+		var
+	end
+
 end

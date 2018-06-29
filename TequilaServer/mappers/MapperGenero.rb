@@ -156,6 +156,33 @@ class MapperGenero
 	   	canciones 
 	end
 
-	
+def obtener_generos() 
+		generos = [] 
+		begin
+			conexion = Conexion.new
+			con = conexion.conectar
+			consulta = con.prepare("SELECT * from Genero")
+			resultado = consulta.execute()
+			
+			resultado.each do |registro|
+				registro["idGenero"] = "NULL" if registro["idGenero"].nil?
+				registro["nombreGenero"] = "NULL" if registro["nombreGenero"].nil?
+
+				genero = Genero.new 
+				genero.idGenero = registro["idGenero"]
+				genero.nombreGenero = registro["nombreGenero"]
+				generos << genero
+	   		end
+
+	   		resultado.free
+
+   		rescue Mysql2::Error => e
+   			puts "Error code: #{e.errno}"
+		    puts "Error message: #{e.error}"
+	   	ensure
+	   		con.close if con
+	   	end
+	   	generos 
+	end
 
 end
