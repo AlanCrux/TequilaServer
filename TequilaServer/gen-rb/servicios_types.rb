@@ -22,6 +22,7 @@ class CancionSL
   ANIOLANZAMIENTO = 12
   COMPANIADISCOGRAFICA = 13
   FECHA = 14
+  DESCARGADA = 15
 
   FIELDS = {
     IDCANCION => {:type => ::Thrift::Types::I32, :name => 'idCancion'},
@@ -37,7 +38,8 @@ class CancionSL
     PUNTUACION => {:type => ::Thrift::Types::I32, :name => 'puntuacion'},
     ANIOLANZAMIENTO => {:type => ::Thrift::Types::STRING, :name => 'anioLanzamiento'},
     COMPANIADISCOGRAFICA => {:type => ::Thrift::Types::STRING, :name => 'companiaDiscografica'},
-    FECHA => {:type => ::Thrift::Types::STRING, :name => 'fecha'}
+    FECHA => {:type => ::Thrift::Types::STRING, :name => 'fecha'},
+    DESCARGADA => {:type => ::Thrift::Types::STRING, :name => 'descargada'}
   }
 
   def struct_fields; FIELDS; end
@@ -62,26 +64,6 @@ class Usuario
     CLAVE => {:type => ::Thrift::Types::STRING, :name => 'clave'},
     TIPO => {:type => ::Thrift::Types::STRING, :name => 'tipo'},
     FOTO => {:type => ::Thrift::Types::STRING, :name => 'foto', :binary => true}
-  }
-
-  def struct_fields; FIELDS; end
-
-  def validate
-  end
-
-  ::Thrift::Struct.generate_accessors self
-end
-
-class Puntuacion
-  include ::Thrift::Struct, ::Thrift::Struct_Union
-  IDCANCION = 1
-  CORREO = 2
-  PUNTUACION = 3
-
-  FIELDS = {
-    IDCANCION => {:type => ::Thrift::Types::I32, :name => 'idCancion'},
-    CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'},
-    PUNTUACION => {:type => ::Thrift::Types::I32, :name => 'puntuacion'}
   }
 
   def struct_fields; FIELDS; end
@@ -140,10 +122,14 @@ class Biblioteca
   include ::Thrift::Struct, ::Thrift::Struct_Union
   IDCANCION = 1
   CORREO = 2
+  PUNTUACION = 3
+  DESCARGADA = 4
 
   FIELDS = {
     IDCANCION => {:type => ::Thrift::Types::I32, :name => 'idCancion'},
-    CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'}
+    CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'},
+    PUNTUACION => {:type => ::Thrift::Types::I32, :name => 'puntuacion'},
+    DESCARGADA => {:type => ::Thrift::Types::STRING, :name => 'descargada'}
   }
 
   def struct_fields; FIELDS; end
@@ -162,6 +148,102 @@ class Contenido
   FIELDS = {
     IDCANCION => {:type => ::Thrift::Types::I32, :name => 'idCancion'},
     IDPLAYLIST => {:type => ::Thrift::Types::I32, :name => 'idPlaylist'}
+  }
+
+  def struct_fields; FIELDS; end
+
+  def validate
+  end
+
+  ::Thrift::Struct.generate_accessors self
+end
+
+class AlbumSL
+  include ::Thrift::Struct, ::Thrift::Struct_Union
+  IDALBUM = 1
+  TITULO = 2
+  IMAGENALBUM = 3
+  NOMBREARTISTA = 4
+  CORREO = 5
+  ANIOLANZAMIENTO = 6
+  COMPANIADISCOGRAFICA = 7
+
+  FIELDS = {
+    IDALBUM => {:type => ::Thrift::Types::I32, :name => 'idAlbum'},
+    TITULO => {:type => ::Thrift::Types::STRING, :name => 'titulo'},
+    IMAGENALBUM => {:type => ::Thrift::Types::STRING, :name => 'imagenAlbum', :binary => true},
+    NOMBREARTISTA => {:type => ::Thrift::Types::STRING, :name => 'nombreArtista'},
+    CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'},
+    ANIOLANZAMIENTO => {:type => ::Thrift::Types::STRING, :name => 'anioLanzamiento'},
+    COMPANIADISCOGRAFICA => {:type => ::Thrift::Types::STRING, :name => 'companiaDiscografica'}
+  }
+
+  def struct_fields; FIELDS; end
+
+  def validate
+  end
+
+  ::Thrift::Struct.generate_accessors self
+end
+
+class Genero
+  include ::Thrift::Struct, ::Thrift::Struct_Union
+  IDGENERO = 1
+  NOMBREGENERO = 2
+
+  FIELDS = {
+    IDGENERO => {:type => ::Thrift::Types::I32, :name => 'idGenero'},
+    NOMBREGENERO => {:type => ::Thrift::Types::STRING, :name => 'nombreGenero'}
+  }
+
+  def struct_fields; FIELDS; end
+
+  def validate
+  end
+
+  ::Thrift::Struct.generate_accessors self
+end
+
+class Album
+  include ::Thrift::Struct, ::Thrift::Struct_Union
+  IDALBUM = 1
+  TITULO = 2
+  IMAGENALBUM = 3
+  CORREO = 4
+  ANIOLANZAMIENTO = 5
+  COMPANIADISCOGRAFICA = 6
+
+  FIELDS = {
+    IDALBUM => {:type => ::Thrift::Types::I32, :name => 'idAlbum'},
+    TITULO => {:type => ::Thrift::Types::STRING, :name => 'titulo'},
+    IMAGENALBUM => {:type => ::Thrift::Types::STRING, :name => 'imagenAlbum', :binary => true},
+    CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'},
+    ANIOLANZAMIENTO => {:type => ::Thrift::Types::STRING, :name => 'anioLanzamiento'},
+    COMPANIADISCOGRAFICA => {:type => ::Thrift::Types::STRING, :name => 'companiaDiscografica'}
+  }
+
+  def struct_fields; FIELDS; end
+
+  def validate
+  end
+
+  ::Thrift::Struct.generate_accessors self
+end
+
+class Cancion
+  include ::Thrift::Struct, ::Thrift::Struct_Union
+  IDCANCION = 1
+  TITULO = 2
+  RUTA = 3
+  IDALBUM = 4
+  IDGENERO = 5
+
+  FIELDS = {
+    IDCANCION => {:type => ::Thrift::Types::I32, :name => 'idCancion'},
+    TITULO => {:type => ::Thrift::Types::STRING, :name => 'titulo'},
+    RUTA => {:type => ::Thrift::Types::STRING, :name => 'ruta'},
+    IDALBUM => {:type => ::Thrift::Types::I32, :name => 'idAlbum'},
+    IDGENERO => {:type => ::Thrift::Types::I32, :name => 'idGenero'}
   }
 
   def struct_fields; FIELDS; end

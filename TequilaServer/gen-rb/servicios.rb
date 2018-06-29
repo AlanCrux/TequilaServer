@@ -71,21 +71,6 @@ module Servicios
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerCancionesBiblioteca failed: unknown result')
     end
 
-    def bajarCancion(ruta)
-      send_bajarCancion(ruta)
-      return recv_bajarCancion()
-    end
-
-    def send_bajarCancion(ruta)
-      send_message('bajarCancion', BajarCancion_args, :ruta => ruta)
-    end
-
-    def recv_bajarCancion()
-      result = receive_message(BajarCancion_result)
-      return result.success unless result.success.nil?
-      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'bajarCancion failed: unknown result')
-    end
-
     def obtenerPlaylists(correo)
       send_obtenerPlaylists(correo)
       return recv_obtenerPlaylists()
@@ -176,19 +161,19 @@ module Servicios
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'insertarCancionPlaylist failed: unknown result')
     end
 
-    def elimnarCancionPlaylist(idCancion)
-      send_elimnarCancionPlaylist(idCancion)
-      return recv_elimnarCancionPlaylist()
+    def eliminarCancionPlaylist(idCancion)
+      send_eliminarCancionPlaylist(idCancion)
+      return recv_eliminarCancionPlaylist()
     end
 
-    def send_elimnarCancionPlaylist(idCancion)
-      send_message('elimnarCancionPlaylist', ElimnarCancionPlaylist_args, :idCancion => idCancion)
+    def send_eliminarCancionPlaylist(idCancion)
+      send_message('eliminarCancionPlaylist', EliminarCancionPlaylist_args, :idCancion => idCancion)
     end
 
-    def recv_elimnarCancionPlaylist()
-      result = receive_message(ElimnarCancionPlaylist_result)
+    def recv_eliminarCancionPlaylist()
+      result = receive_message(EliminarCancionPlaylist_result)
       return result.success unless result.success.nil?
-      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'elimnarCancionPlaylist failed: unknown result')
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'eliminarCancionPlaylist failed: unknown result')
     end
 
     def obtenerHistorial(correo)
@@ -266,6 +251,186 @@ module Servicios
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'eliminarCancionBiblioteca failed: unknown result')
     end
 
+    def obtenerAlbumesUsuario(correo)
+      send_obtenerAlbumesUsuario(correo)
+      return recv_obtenerAlbumesUsuario()
+    end
+
+    def send_obtenerAlbumesUsuario(correo)
+      send_message('obtenerAlbumesUsuario', ObtenerAlbumesUsuario_args, :correo => correo)
+    end
+
+    def recv_obtenerAlbumesUsuario()
+      result = receive_message(ObtenerAlbumesUsuario_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerAlbumesUsuario failed: unknown result')
+    end
+
+    def obtenerCancionesAlbum(idAlbum)
+      send_obtenerCancionesAlbum(idAlbum)
+      return recv_obtenerCancionesAlbum()
+    end
+
+    def send_obtenerCancionesAlbum(idAlbum)
+      send_message('obtenerCancionesAlbum', ObtenerCancionesAlbum_args, :idAlbum => idAlbum)
+    end
+
+    def recv_obtenerCancionesAlbum()
+      result = receive_message(ObtenerCancionesAlbum_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerCancionesAlbum failed: unknown result')
+    end
+
+    def obtenerArtistasUsuario(correo)
+      send_obtenerArtistasUsuario(correo)
+      return recv_obtenerArtistasUsuario()
+    end
+
+    def send_obtenerArtistasUsuario(correo)
+      send_message('obtenerArtistasUsuario', ObtenerArtistasUsuario_args, :correo => correo)
+    end
+
+    def recv_obtenerArtistasUsuario()
+      result = receive_message(ObtenerArtistasUsuario_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerArtistasUsuario failed: unknown result')
+    end
+
+    def obtenerCancionesArtista(correo)
+      send_obtenerCancionesArtista(correo)
+      return recv_obtenerCancionesArtista()
+    end
+
+    def send_obtenerCancionesArtista(correo)
+      send_message('obtenerCancionesArtista', ObtenerCancionesArtista_args, :correo => correo)
+    end
+
+    def recv_obtenerCancionesArtista()
+      result = receive_message(ObtenerCancionesArtista_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerCancionesArtista failed: unknown result')
+    end
+
+    def obtenerGenerosUsuario(correo)
+      send_obtenerGenerosUsuario(correo)
+      return recv_obtenerGenerosUsuario()
+    end
+
+    def send_obtenerGenerosUsuario(correo)
+      send_message('obtenerGenerosUsuario', ObtenerGenerosUsuario_args, :correo => correo)
+    end
+
+    def recv_obtenerGenerosUsuario()
+      result = receive_message(ObtenerGenerosUsuario_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerGenerosUsuario failed: unknown result')
+    end
+
+    def obtenerCancionesGenero(idGenero)
+      send_obtenerCancionesGenero(idGenero)
+      return recv_obtenerCancionesGenero()
+    end
+
+    def send_obtenerCancionesGenero(idGenero)
+      send_message('obtenerCancionesGenero', ObtenerCancionesGenero_args, :idGenero => idGenero)
+    end
+
+    def recv_obtenerCancionesGenero()
+      result = receive_message(ObtenerCancionesGenero_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerCancionesGenero failed: unknown result')
+    end
+
+    def crearRadio(idGenero)
+      send_crearRadio(idGenero)
+      return recv_crearRadio()
+    end
+
+    def send_crearRadio(idGenero)
+      send_message('crearRadio', CrearRadio_args, :idGenero => idGenero)
+    end
+
+    def recv_crearRadio()
+      result = receive_message(CrearRadio_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'crearRadio failed: unknown result')
+    end
+
+    def obtenerCancionesDelArtista(correo)
+      send_obtenerCancionesDelArtista(correo)
+      return recv_obtenerCancionesDelArtista()
+    end
+
+    def send_obtenerCancionesDelArtista(correo)
+      send_message('obtenerCancionesDelArtista', ObtenerCancionesDelArtista_args, :correo => correo)
+    end
+
+    def recv_obtenerCancionesDelArtista()
+      result = receive_message(ObtenerCancionesDelArtista_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerCancionesDelArtista failed: unknown result')
+    end
+
+    def obtenerAlbumesArtista(correo)
+      send_obtenerAlbumesArtista(correo)
+      return recv_obtenerAlbumesArtista()
+    end
+
+    def send_obtenerAlbumesArtista(correo)
+      send_message('obtenerAlbumesArtista', ObtenerAlbumesArtista_args, :correo => correo)
+    end
+
+    def recv_obtenerAlbumesArtista()
+      result = receive_message(ObtenerAlbumesArtista_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerAlbumesArtista failed: unknown result')
+    end
+
+    def obtenerCancionesAlbumArtista(idAlbum)
+      send_obtenerCancionesAlbumArtista(idAlbum)
+      return recv_obtenerCancionesAlbumArtista()
+    end
+
+    def send_obtenerCancionesAlbumArtista(idAlbum)
+      send_message('obtenerCancionesAlbumArtista', ObtenerCancionesAlbumArtista_args, :idAlbum => idAlbum)
+    end
+
+    def recv_obtenerCancionesAlbumArtista()
+      result = receive_message(ObtenerCancionesAlbumArtista_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerCancionesAlbumArtista failed: unknown result')
+    end
+
+    def insertarAlbum(album)
+      send_insertarAlbum(album)
+      return recv_insertarAlbum()
+    end
+
+    def send_insertarAlbum(album)
+      send_message('insertarAlbum', InsertarAlbum_args, :album => album)
+    end
+
+    def recv_insertarAlbum()
+      result = receive_message(InsertarAlbum_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'insertarAlbum failed: unknown result')
+    end
+
+    def insertarCancion(cancion)
+      send_insertarCancion(cancion)
+      return recv_insertarCancion()
+    end
+
+    def send_insertarCancion(cancion)
+      send_message('insertarCancion', InsertarCancion_args, :cancion => cancion)
+    end
+
+    def recv_insertarCancion()
+      result = receive_message(InsertarCancion_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'insertarCancion failed: unknown result')
+    end
+
   end
 
   class Processor
@@ -297,13 +462,6 @@ module Servicios
       result = ObtenerCancionesBiblioteca_result.new()
       result.success = @handler.obtenerCancionesBiblioteca(args.correo)
       write_result(result, oprot, 'obtenerCancionesBiblioteca', seqid)
-    end
-
-    def process_bajarCancion(seqid, iprot, oprot)
-      args = read_args(iprot, BajarCancion_args)
-      result = BajarCancion_result.new()
-      result.success = @handler.bajarCancion(args.ruta)
-      write_result(result, oprot, 'bajarCancion', seqid)
     end
 
     def process_obtenerPlaylists(seqid, iprot, oprot)
@@ -348,11 +506,11 @@ module Servicios
       write_result(result, oprot, 'insertarCancionPlaylist', seqid)
     end
 
-    def process_elimnarCancionPlaylist(seqid, iprot, oprot)
-      args = read_args(iprot, ElimnarCancionPlaylist_args)
-      result = ElimnarCancionPlaylist_result.new()
-      result.success = @handler.elimnarCancionPlaylist(args.idCancion)
-      write_result(result, oprot, 'elimnarCancionPlaylist', seqid)
+    def process_eliminarCancionPlaylist(seqid, iprot, oprot)
+      args = read_args(iprot, EliminarCancionPlaylist_args)
+      result = EliminarCancionPlaylist_result.new()
+      result.success = @handler.eliminarCancionPlaylist(args.idCancion)
+      write_result(result, oprot, 'eliminarCancionPlaylist', seqid)
     end
 
     def process_obtenerHistorial(seqid, iprot, oprot)
@@ -388,6 +546,90 @@ module Servicios
       result = EliminarCancionBiblioteca_result.new()
       result.success = @handler.eliminarCancionBiblioteca(args.idCancion)
       write_result(result, oprot, 'eliminarCancionBiblioteca', seqid)
+    end
+
+    def process_obtenerAlbumesUsuario(seqid, iprot, oprot)
+      args = read_args(iprot, ObtenerAlbumesUsuario_args)
+      result = ObtenerAlbumesUsuario_result.new()
+      result.success = @handler.obtenerAlbumesUsuario(args.correo)
+      write_result(result, oprot, 'obtenerAlbumesUsuario', seqid)
+    end
+
+    def process_obtenerCancionesAlbum(seqid, iprot, oprot)
+      args = read_args(iprot, ObtenerCancionesAlbum_args)
+      result = ObtenerCancionesAlbum_result.new()
+      result.success = @handler.obtenerCancionesAlbum(args.idAlbum)
+      write_result(result, oprot, 'obtenerCancionesAlbum', seqid)
+    end
+
+    def process_obtenerArtistasUsuario(seqid, iprot, oprot)
+      args = read_args(iprot, ObtenerArtistasUsuario_args)
+      result = ObtenerArtistasUsuario_result.new()
+      result.success = @handler.obtenerArtistasUsuario(args.correo)
+      write_result(result, oprot, 'obtenerArtistasUsuario', seqid)
+    end
+
+    def process_obtenerCancionesArtista(seqid, iprot, oprot)
+      args = read_args(iprot, ObtenerCancionesArtista_args)
+      result = ObtenerCancionesArtista_result.new()
+      result.success = @handler.obtenerCancionesArtista(args.correo)
+      write_result(result, oprot, 'obtenerCancionesArtista', seqid)
+    end
+
+    def process_obtenerGenerosUsuario(seqid, iprot, oprot)
+      args = read_args(iprot, ObtenerGenerosUsuario_args)
+      result = ObtenerGenerosUsuario_result.new()
+      result.success = @handler.obtenerGenerosUsuario(args.correo)
+      write_result(result, oprot, 'obtenerGenerosUsuario', seqid)
+    end
+
+    def process_obtenerCancionesGenero(seqid, iprot, oprot)
+      args = read_args(iprot, ObtenerCancionesGenero_args)
+      result = ObtenerCancionesGenero_result.new()
+      result.success = @handler.obtenerCancionesGenero(args.idGenero)
+      write_result(result, oprot, 'obtenerCancionesGenero', seqid)
+    end
+
+    def process_crearRadio(seqid, iprot, oprot)
+      args = read_args(iprot, CrearRadio_args)
+      result = CrearRadio_result.new()
+      result.success = @handler.crearRadio(args.idGenero)
+      write_result(result, oprot, 'crearRadio', seqid)
+    end
+
+    def process_obtenerCancionesDelArtista(seqid, iprot, oprot)
+      args = read_args(iprot, ObtenerCancionesDelArtista_args)
+      result = ObtenerCancionesDelArtista_result.new()
+      result.success = @handler.obtenerCancionesDelArtista(args.correo)
+      write_result(result, oprot, 'obtenerCancionesDelArtista', seqid)
+    end
+
+    def process_obtenerAlbumesArtista(seqid, iprot, oprot)
+      args = read_args(iprot, ObtenerAlbumesArtista_args)
+      result = ObtenerAlbumesArtista_result.new()
+      result.success = @handler.obtenerAlbumesArtista(args.correo)
+      write_result(result, oprot, 'obtenerAlbumesArtista', seqid)
+    end
+
+    def process_obtenerCancionesAlbumArtista(seqid, iprot, oprot)
+      args = read_args(iprot, ObtenerCancionesAlbumArtista_args)
+      result = ObtenerCancionesAlbumArtista_result.new()
+      result.success = @handler.obtenerCancionesAlbumArtista(args.idAlbum)
+      write_result(result, oprot, 'obtenerCancionesAlbumArtista', seqid)
+    end
+
+    def process_insertarAlbum(seqid, iprot, oprot)
+      args = read_args(iprot, InsertarAlbum_args)
+      result = InsertarAlbum_result.new()
+      result.success = @handler.insertarAlbum(args.album)
+      write_result(result, oprot, 'insertarAlbum', seqid)
+    end
+
+    def process_insertarCancion(seqid, iprot, oprot)
+      args = read_args(iprot, InsertarCancion_args)
+      result = InsertarCancion_result.new()
+      result.success = @handler.insertarCancion(args.cancion)
+      write_result(result, oprot, 'insertarCancion', seqid)
     end
 
   end
@@ -512,38 +754,6 @@ module Servicios
 
     FIELDS = {
       SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => ::CancionSL}}
-    }
-
-    def struct_fields; FIELDS; end
-
-    def validate
-    end
-
-    ::Thrift::Struct.generate_accessors self
-  end
-
-  class BajarCancion_args
-    include ::Thrift::Struct, ::Thrift::Struct_Union
-    RUTA = 1
-
-    FIELDS = {
-      RUTA => {:type => ::Thrift::Types::STRING, :name => 'ruta'}
-    }
-
-    def struct_fields; FIELDS; end
-
-    def validate
-    end
-
-    ::Thrift::Struct.generate_accessors self
-  end
-
-  class BajarCancion_result
-    include ::Thrift::Struct, ::Thrift::Struct_Union
-    SUCCESS = 0
-
-    FIELDS = {
-      SUCCESS => {:type => ::Thrift::Types::STRING, :name => 'success', :binary => true}
     }
 
     def struct_fields; FIELDS; end
@@ -746,7 +956,7 @@ module Servicios
     ::Thrift::Struct.generate_accessors self
   end
 
-  class ElimnarCancionPlaylist_args
+  class EliminarCancionPlaylist_args
     include ::Thrift::Struct, ::Thrift::Struct_Union
     IDCANCION = 1
 
@@ -762,7 +972,7 @@ module Servicios
     ::Thrift::Struct.generate_accessors self
   end
 
-  class ElimnarCancionPlaylist_result
+  class EliminarCancionPlaylist_result
     include ::Thrift::Struct, ::Thrift::Struct_Union
     SUCCESS = 0
 
@@ -923,6 +1133,390 @@ module Servicios
   end
 
   class EliminarCancionBiblioteca_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerAlbumesUsuario_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    CORREO = 1
+
+    FIELDS = {
+      CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerAlbumesUsuario_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => ::AlbumSL}}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerCancionesAlbum_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    IDALBUM = 1
+
+    FIELDS = {
+      IDALBUM => {:type => ::Thrift::Types::I32, :name => 'idAlbum'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerCancionesAlbum_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => ::CancionSL}}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerArtistasUsuario_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    CORREO = 1
+
+    FIELDS = {
+      CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerArtistasUsuario_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => ::Usuario}}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerCancionesArtista_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    CORREO = 1
+
+    FIELDS = {
+      CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerCancionesArtista_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => ::CancionSL}}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerGenerosUsuario_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    CORREO = 1
+
+    FIELDS = {
+      CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerGenerosUsuario_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => ::Genero}}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerCancionesGenero_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    IDGENERO = 1
+
+    FIELDS = {
+      IDGENERO => {:type => ::Thrift::Types::I32, :name => 'idGenero'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerCancionesGenero_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => ::CancionSL}}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class CrearRadio_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    IDGENERO = 1
+
+    FIELDS = {
+      IDGENERO => {:type => ::Thrift::Types::I32, :name => 'idGenero'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class CrearRadio_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => ::CancionSL}}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerCancionesDelArtista_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    CORREO = 1
+
+    FIELDS = {
+      CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerCancionesDelArtista_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => ::CancionSL}}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerAlbumesArtista_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    CORREO = 1
+
+    FIELDS = {
+      CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerAlbumesArtista_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => ::AlbumSL}}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerCancionesAlbumArtista_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    IDALBUM = 1
+
+    FIELDS = {
+      IDALBUM => {:type => ::Thrift::Types::I32, :name => 'idAlbum'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerCancionesAlbumArtista_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => ::CancionSL}}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class InsertarAlbum_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    ALBUM = 1
+
+    FIELDS = {
+      ALBUM => {:type => ::Thrift::Types::STRUCT, :name => 'album', :class => ::Album}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class InsertarAlbum_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class InsertarCancion_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    CANCION = 1
+
+    FIELDS = {
+      CANCION => {:type => ::Thrift::Types::STRUCT, :name => 'cancion', :class => ::Cancion}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class InsertarCancion_result
     include ::Thrift::Struct, ::Thrift::Struct_Union
     SUCCESS = 0
 

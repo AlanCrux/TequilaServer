@@ -72,8 +72,7 @@ class MapperCancion
 				Biblioteca.puntuacion, Biblioteca.descargada  
 				from Cancion join Album join Usuario join Genero join Biblioteca
 				where Cancion.idAlbum = Album.idAlbum and Genero.idGenero = Cancion.idGenero 
-				and Album.correo = Usuario.correo and 
-				Usuario.correo = Biblioteca.correo and Cancion.idCancion = Biblioteca.idCancion and 
+				and Album.correo = Usuario.correo and Cancion.idCancion = Biblioteca.idCancion and 
 				Biblioteca.correo = ?")
 			resultado = consulta.execute(correo)
 			
@@ -111,7 +110,7 @@ class MapperCancion
 				canciones << cancion
 	   		end
 
-	   		consulta.free
+	   		resultado.free
 
    		rescue Mysql2::Error => e
    			puts "Error code: #{e.errno}"

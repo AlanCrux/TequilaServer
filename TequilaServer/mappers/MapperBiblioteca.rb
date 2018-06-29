@@ -9,7 +9,7 @@ class MapperBiblioteca
 			begin 
 				conexion = Conexion.new
 				con = conexion.conectar
-				consulta = con.prepare("insert into Biblioteca values (?,?)")
+				consulta = con.prepare("insert into Biblioteca(correo,idCancion) values (?,?)")
 				consulta.execute(biblioteca.correo, biblioteca.idCancion)
 		   		var = true
 	   		rescue Mysql2::Error => e

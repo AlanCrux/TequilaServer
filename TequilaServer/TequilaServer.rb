@@ -31,11 +31,6 @@ class ControlServicios
 		mapper.insertar_usuario(usuario) 
 	end
 
-	def bajarCancion(ruta)
-		 var = File.read(ruta)  
-		 var.bytes.to_a
-	end
-
 	def obtenerPlaylists(correo)
 		mapper = MapperPlaylist.new	
 		mapper.obtener_playlists(correo)
@@ -66,7 +61,7 @@ class ControlServicios
 		mapper.insertar_cancion_playlist(contenido)
 	end
 
-	def elimnarCancionPlaylist(idCancion)
+	def eliminarCancionPlaylist(idCancion)
 		mapper = MapperPlaylist.new	
 		mapper.eliminar_cancion_playlist(idCancion)
 	end
@@ -155,6 +150,12 @@ class ControlServicios
 		mapper = MapperCancion.new	
 		mapper.insertar_cancion(cancion) 
 	end
+
+	def obtenerCancionesBiblioteca(correo)
+		mapper = MapperCancion.new	
+		mapper.obtener_canciones_biblioteca(correo)
+	end
+
 end
 
 control = ControlServicios.new()
