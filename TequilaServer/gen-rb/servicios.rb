@@ -431,6 +431,21 @@ module Servicios
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'insertarCancion failed: unknown result')
     end
 
+    def actualizarPuntuacion(biblioteca)
+      send_actualizarPuntuacion(biblioteca)
+      return recv_actualizarPuntuacion()
+    end
+
+    def send_actualizarPuntuacion(biblioteca)
+      send_message('actualizarPuntuacion', ActualizarPuntuacion_args, :biblioteca => biblioteca)
+    end
+
+    def recv_actualizarPuntuacion()
+      result = receive_message(ActualizarPuntuacion_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'actualizarPuntuacion failed: unknown result')
+    end
+
   end
 
   class Processor
@@ -630,6 +645,13 @@ module Servicios
       result = InsertarCancion_result.new()
       result.success = @handler.insertarCancion(args.cancion)
       write_result(result, oprot, 'insertarCancion', seqid)
+    end
+
+    def process_actualizarPuntuacion(seqid, iprot, oprot)
+      args = read_args(iprot, ActualizarPuntuacion_args)
+      result = ActualizarPuntuacion_result.new()
+      result.success = @handler.actualizarPuntuacion(args.biblioteca)
+      write_result(result, oprot, 'actualizarPuntuacion', seqid)
     end
 
   end
@@ -1517,6 +1539,38 @@ module Servicios
   end
 
   class InsertarCancion_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ActualizarPuntuacion_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    BIBLIOTECA = 1
+
+    FIELDS = {
+      BIBLIOTECA => {:type => ::Thrift::Types::STRUCT, :name => 'biblioteca', :class => ::Biblioteca}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ActualizarPuntuacion_result
     include ::Thrift::Struct, ::Thrift::Struct_Union
     SUCCESS = 0
 

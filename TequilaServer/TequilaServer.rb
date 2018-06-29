@@ -155,7 +155,7 @@ class ControlServicios
 		mapper = MapperCancion.new	
 		mapper.obtener_canciones_biblioteca(correo)
 	end
-	actualizarPuntuacion
+	
 	def actualizarPuntuacion(biblioteca)
 		mapper = MapperBiblioteca.new	
 		mapper.actualizar_puntuacion(biblioteca) 

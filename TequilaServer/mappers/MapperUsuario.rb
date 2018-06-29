@@ -78,7 +78,7 @@ def obtener_artistas_usuario(correo)
 				usuario.foto = registro["foto"]
 				usuario.correo = registro["correo"]
 
-				artistas << playlist
+				artistas << usuario
 			end
 
 	   		resultado.free

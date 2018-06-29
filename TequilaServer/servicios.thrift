@@ -1,3 +1,4 @@
+namespace java servicios
 typedef i64 int 
 
 struct CancionSL{
