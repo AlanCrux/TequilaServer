@@ -192,7 +192,7 @@ class MapperAlbum
 				canciones << cancion
 	   		end
 
-	   		consulta.free
+	   		resultado.free
 
    		rescue Mysql2::Error => e
    			puts "Error code: #{e.errno}"
