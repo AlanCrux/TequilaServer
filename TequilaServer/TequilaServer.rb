@@ -130,6 +130,31 @@ class ControlServicios
 		mapper = MapperGenero.new	
 		mapper.crear_radio(idGenero)
 	end
+
+	def obtenerCancionesDelArtista(correo)
+		mapper = MapperCancion.new	
+		mapper.obtener_canciones_del_artista(correo) 
+	end
+
+	def obtenerAlbumesArtista(correo)
+		mapper = MapperAlbum.new	
+		mapper.obtener_albumes_artista(correo)
+	end
+
+	def obtenerCancionesAlbumArtista(idAlbum)
+		mapper = MapperAlbum.new	
+		mapper.obtener_canciones_album_artista(idAlbum)
+	end
+
+	def insertarAlbum(album)
+		mapper = MapperAlbum.new	
+		mapper.insertar_album(album) 
+	end
+
+	def insertarCancion(cancion)
+		mapper = MapperCancion.new	
+		mapper.insertar_cancion(cancion) 
+	end
 end
 
 control = ControlServicios.new()

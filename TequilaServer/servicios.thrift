@@ -67,6 +67,23 @@ struct Genero{
 	2 : string nombreGenero
 }
 
+struct Album{
+	1 : i32 idAlbum,
+	2 : string titulo,
+	3 : binary imagenAlbum,
+	4 : string correo,
+	5 : string anioLanzamiento,
+	6 : string companiaDiscografica
+}
+
+struct Cancion{
+   1 : i32 idCancion,
+   2 : string titulo,
+   3 : string ruta,
+   4 : i32 idAlbum,
+   5 : i32 idGenero
+}
+
 
 service servicios {
 	list<CancionSL> obtenerCancionesFiltradas(1:string criterio),
@@ -98,12 +115,12 @@ service servicios {
 
 	list<Genero> obtenerGenerosUsuario(1:string correo),
 	list<CancionSL> obtenerCancionesGenero(1:i32 idGenero),
-	list<CancionSL> crearRadio(1:i32 idGenero)
+	list<CancionSL> crearRadio(1:i32 idGenero),
 
-
-
-
-
-
+	list<CancionSL> obtenerCancionesDelArtista(1:string correo),
+	list<AlbumSL> obtenerAlbumesArtista(1:string correo),
+	list<CancionSL> obtenerCancionesAlbumArtista(1:i32 idAlbum),
+	bool insertarAlbum(1:Album album),
+	bool insertarCancion(1:Cancion cancion)
 }
 
