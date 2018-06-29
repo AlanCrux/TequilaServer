@@ -121,6 +121,8 @@ service servicios {
 	list<AlbumSL> obtenerAlbumesArtista(1:string correo),
 	list<CancionSL> obtenerCancionesAlbumArtista(1:i32 idAlbum),
 	bool insertarAlbum(1:Album album),
-	bool insertarCancion(1:Cancion cancion)
+	bool insertarCancion(1:Cancion cancion),
+
+	bool actualizarPuntuacion(1:Biblioteca biblioteca)
 }
 
