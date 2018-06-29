@@ -102,7 +102,7 @@ def obtener_artistas_usuario(correo)
 			Usuario.nombre as nombreUsuario,  Genero.idGenero, Genero.nombreGenero,	Usuario.correo
 			from Cancion join Album join Usuario join Genero join Biblioteca
 			where Cancion.idAlbum = Album.idAlbum and Genero.idGenero = Cancion.idGenero and 
-			Cancion.idCancion = Biblioteca.idCancion and Album.correo = ? 
+			Cancion.idCancion = Biblioteca.idCancion and Album.correo = Usuario.correo and Album.correo = ?
 			And Biblioteca.correo = ?")
 			resultado = consulta.execute(correoArtista, correoCliente)
 			

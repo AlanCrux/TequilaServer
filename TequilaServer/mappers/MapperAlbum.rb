@@ -191,9 +191,7 @@ class MapperAlbum
 				cancion.companiaDiscografica = registro["companiaDiscografica"]
 				canciones << cancion
 	   		end
-
 	   		resultado.free
-
    		rescue Mysql2::Error => e
    			puts "Error code: #{e.errno}"
 		    puts "Error message: #{e.error}"
