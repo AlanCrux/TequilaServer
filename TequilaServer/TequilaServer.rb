@@ -116,9 +116,9 @@ class ControlServicios
 		mapper.obtener_generos_usuario(correo) 
 	end
 
-	def obtenerCancionesGenero(idGenero)
+	def obtenerCancionesGenero(idGenero, correo)
 		mapper = MapperGenero.new	
-		mapper.obtener_canciones_genero(idGenero) 
+		mapper.obtener_canciones_genero(idGenero, correo)
 	end
 
 	def crearRadio(idGenero)

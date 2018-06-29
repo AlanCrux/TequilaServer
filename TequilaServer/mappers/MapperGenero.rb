@@ -36,7 +36,7 @@ class MapperGenero
 	end
 
 
-	def obtener_canciones_genero(idGenero) 
+	def obtener_canciones_genero(idGenero, correo) 
 		canciones = [] 
 		begin
 			conexion = Conexion.new
@@ -49,8 +49,8 @@ class MapperGenero
 			from Cancion join Album join Usuario join Genero join Biblioteca
 			where Cancion.idAlbum = Album.idAlbum and Genero.idGenero = Cancion.idGenero 
 			and Album.correo = Usuario.correo and Cancion.idCancion = Biblioteca.idCancion and 
-			Cancion.idGenero = ?")
-			resultado = consulta.execute(idGenero)
+			Cancion.idGenero = ? and Biblioteca.correo = ?")
+			resultado = consulta.execute(idGenero, correo)
 			
 			resultado.each do |registro|
 				registro["idCancion"] = "NULL" if registro["idCancion"].nil?
