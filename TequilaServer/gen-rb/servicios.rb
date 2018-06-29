@@ -296,13 +296,13 @@ module Servicios
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerArtistasUsuario failed: unknown result')
     end
 
-    def obtenerCancionesArtista(correo)
-      send_obtenerCancionesArtista(correo)
+    def obtenerCancionesArtista(correoCliente, correoArtista)
+      send_obtenerCancionesArtista(correoCliente, correoArtista)
       return recv_obtenerCancionesArtista()
     end
 
-    def send_obtenerCancionesArtista(correo)
-      send_message('obtenerCancionesArtista', ObtenerCancionesArtista_args, :correo => correo)
+    def send_obtenerCancionesArtista(correoCliente, correoArtista)
+      send_message('obtenerCancionesArtista', ObtenerCancionesArtista_args, :correoCliente => correoCliente, :correoArtista => correoArtista)
     end
 
     def recv_obtenerCancionesArtista()
@@ -326,13 +326,13 @@ module Servicios
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerGenerosUsuario failed: unknown result')
     end
 
-    def obtenerCancionesGenero(idGenero)
-      send_obtenerCancionesGenero(idGenero)
+    def obtenerCancionesGenero(idGenero, correo)
+      send_obtenerCancionesGenero(idGenero, correo)
       return recv_obtenerCancionesGenero()
     end
 
-    def send_obtenerCancionesGenero(idGenero)
-      send_message('obtenerCancionesGenero', ObtenerCancionesGenero_args, :idGenero => idGenero)
+    def send_obtenerCancionesGenero(idGenero, correo)
+      send_message('obtenerCancionesGenero', ObtenerCancionesGenero_args, :idGenero => idGenero, :correo => correo)
     end
 
     def recv_obtenerCancionesGenero()
@@ -587,7 +587,7 @@ module Servicios
     def process_obtenerCancionesArtista(seqid, iprot, oprot)
       args = read_args(iprot, ObtenerCancionesArtista_args)
       result = ObtenerCancionesArtista_result.new()
-      result.success = @handler.obtenerCancionesArtista(args.correo)
+      result.success = @handler.obtenerCancionesArtista(args.correoCliente, args.correoArtista)
       write_result(result, oprot, 'obtenerCancionesArtista', seqid)
     end
 
@@ -601,7 +601,7 @@ module Servicios
     def process_obtenerCancionesGenero(seqid, iprot, oprot)
       args = read_args(iprot, ObtenerCancionesGenero_args)
       result = ObtenerCancionesGenero_result.new()
-      result.success = @handler.obtenerCancionesGenero(args.idGenero)
+      result.success = @handler.obtenerCancionesGenero(args.idGenero, args.correo)
       write_result(result, oprot, 'obtenerCancionesGenero', seqid)
     end
 
@@ -1268,10 +1268,12 @@ module Servicios
 
   class ObtenerCancionesArtista_args
     include ::Thrift::Struct, ::Thrift::Struct_Union
-    CORREO = 1
+    CORREOCLIENTE = 1
+    CORREOARTISTA = 2
 
     FIELDS = {
-      CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'}
+      CORREOCLIENTE => {:type => ::Thrift::Types::STRING, :name => 'correoCliente'},
+      CORREOARTISTA => {:type => ::Thrift::Types::STRING, :name => 'correoArtista'}
     }
 
     def struct_fields; FIELDS; end
@@ -1333,9 +1335,11 @@ module Servicios
   class ObtenerCancionesGenero_args
     include ::Thrift::Struct, ::Thrift::Struct_Union
     IDGENERO = 1
+    CORREO = 2
 
     FIELDS = {
-      IDGENERO => {:type => ::Thrift::Types::I32, :name => 'idGenero'}
+      IDGENERO => {:type => ::Thrift::Types::I32, :name => 'idGenero'},
+      CORREO => {:type => ::Thrift::Types::STRING, :name => 'correo'}
     }
 
     def struct_fields; FIELDS; end

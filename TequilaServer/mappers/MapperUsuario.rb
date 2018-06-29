@@ -95,7 +95,8 @@ def obtener_artistas_usuario(correo)
 	def obtener_canciones_artista(correoCliente, correoArtista) 
 		canciones = [] 
 		begin
-			con = Conexion.new
+			conexion = Conexion.new
+			con = conexion.conectar
 			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, 
 			Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento,
 			Album.companiaDiscografica, Album.imagenAlbum, 
@@ -140,7 +141,7 @@ def obtener_artistas_usuario(correo)
 				canciones << cancion
 	   		end
 
-	   		consulta.free
+	   		resultado.free
 
    		rescue Mysql2::Error => e
    			puts "Error code: #{e.errno}"
