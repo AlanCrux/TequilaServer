@@ -12,8 +12,6 @@ require 'MapperBiblioteca'
 require 'MapperAlbum'
 require 'MapperGenero'
 
-
-
 # En esta clase se define el comportamiento de todos los métodos expuestos en Thrift
 class ControlServicios
 	def obtenerCancionesFiltradas(criterio)

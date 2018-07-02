@@ -11,7 +11,7 @@ class MapperGenero
 			consulta = con.prepare("SELECT Genero.idGenero, Genero.nombreGenero
 				from Cancion join Biblioteca join Genero
 				where Cancion.idCancion = Biblioteca.idCancion and Cancion.idGenero = Genero.idGenero
-				and Biblioteca.correo = ?")
+				and Biblioteca.correo = ? group by Genero.idGenero")
 			resultado = consulta.execute(correo)
 			
 			resultado.each do |registro|

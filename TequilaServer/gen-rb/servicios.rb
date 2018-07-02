@@ -446,6 +446,36 @@ module Servicios
       raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'actualizarPuntuacion failed: unknown result')
     end
 
+    def actualizarBiblioteca(biblioteca)
+      send_actualizarBiblioteca(biblioteca)
+      return recv_actualizarBiblioteca()
+    end
+
+    def send_actualizarBiblioteca(biblioteca)
+      send_message('actualizarBiblioteca', ActualizarBiblioteca_args, :biblioteca => biblioteca)
+    end
+
+    def recv_actualizarBiblioteca()
+      result = receive_message(ActualizarBiblioteca_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'actualizarBiblioteca failed: unknown result')
+    end
+
+    def obtenerGeneros()
+      send_obtenerGeneros()
+      return recv_obtenerGeneros()
+    end
+
+    def send_obtenerGeneros()
+      send_message('obtenerGeneros', ObtenerGeneros_args)
+    end
+
+    def recv_obtenerGeneros()
+      result = receive_message(ObtenerGeneros_result)
+      return result.success unless result.success.nil?
+      raise ::Thrift::ApplicationException.new(::Thrift::ApplicationException::MISSING_RESULT, 'obtenerGeneros failed: unknown result')
+    end
+
   end
 
   class Processor
@@ -652,6 +682,20 @@ module Servicios
       result = ActualizarPuntuacion_result.new()
       result.success = @handler.actualizarPuntuacion(args.biblioteca)
       write_result(result, oprot, 'actualizarPuntuacion', seqid)
+    end
+
+    def process_actualizarBiblioteca(seqid, iprot, oprot)
+      args = read_args(iprot, ActualizarBiblioteca_args)
+      result = ActualizarBiblioteca_result.new()
+      result.success = @handler.actualizarBiblioteca(args.biblioteca)
+      write_result(result, oprot, 'actualizarBiblioteca', seqid)
+    end
+
+    def process_obtenerGeneros(seqid, iprot, oprot)
+      args = read_args(iprot, ObtenerGeneros_args)
+      result = ObtenerGeneros_result.new()
+      result.success = @handler.obtenerGeneros()
+      write_result(result, oprot, 'obtenerGeneros', seqid)
     end
 
   end
@@ -1580,6 +1624,69 @@ module Servicios
 
     FIELDS = {
       SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ActualizarBiblioteca_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    BIBLIOTECA = 1
+
+    FIELDS = {
+      BIBLIOTECA => {:type => ::Thrift::Types::STRUCT, :name => 'biblioteca', :class => ::Biblioteca}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ActualizarBiblioteca_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::BOOL, :name => 'success'}
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerGeneros_args
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+
+    FIELDS = {
+
+    }
+
+    def struct_fields; FIELDS; end
+
+    def validate
+    end
+
+    ::Thrift::Struct.generate_accessors self
+  end
+
+  class ObtenerGeneros_result
+    include ::Thrift::Struct, ::Thrift::Struct_Union
+    SUCCESS = 0
+
+    FIELDS = {
+      SUCCESS => {:type => ::Thrift::Types::LIST, :name => 'success', :element => {:type => ::Thrift::Types::STRUCT, :class => ::Genero}}
     }
 
     def struct_fields; FIELDS; end

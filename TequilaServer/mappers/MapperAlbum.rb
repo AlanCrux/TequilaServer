@@ -32,7 +32,7 @@ class MapperAlbum
 				album.correo = registro["correo"]
 				album.anioLanzamiento = registro["anioLanzamiento"]
 				album.companiaDiscografica = registro["companiaDiscografica"]
-				albumes << cancion
+				albumes << album
 	   		end
 
 	   		resultado.free

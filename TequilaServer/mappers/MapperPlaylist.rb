@@ -45,8 +45,7 @@ class MapperPlaylist
 		begin
 			conexion = Conexion.new
 			con = conexion.conectar
-			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento, Album.companiaDiscografica, Genero.idGenero, Genero.nombreGenero, Usuario.correo  from Cancion join Album join Usuario join Genero join Contenido join Playlist where Cancion.idAlbum = Album.idAlbum and Genero.idGenero = Cancion.idGenero and Album.correo = Usuario.correo and Cancion.idCancion = Contenido.idCancion and Contenido.idPlaylist = Playlist.idPlaylist and Contenido.idPlaylist = ?;")
-
+			consulta = con.prepare("SELECT Cancion.idCancion, Cancion.titulo as nombreCancion, Cancion.ruta,  Album.titulo as nombreAlbum, Album.idAlbum, Album.anioLanzamiento, Album.companiaDiscografica, Album.imagenAlbum, Genero.idGenero, Genero.nombreGenero, Usuario.correo, Usuario.nombre from Cancion join Album join Usuario join Genero join Contenido join Playlist where Cancion.idAlbum = Album.idAlbum and Genero.idGenero = Cancion.idGenero and Album.correo = Usuario.correo and Cancion.idCancion = Contenido.idCancion and Contenido.idPlaylist = Playlist.idPlaylist and Contenido.idPlaylist = ?;")
 			resultado = consulta.execute(idPlaylist)
 			
 			resultado.each do |registro|
@@ -59,6 +58,7 @@ class MapperPlaylist
 				registro["idGenero"] = "NULL" if registro["idGenero"].nil?
 				registro["nombreGenero"] = "NULL" if registro["nombreGenero"].nil?
 				registro["anioLanzamiento"] = "NULL" if registro["anioLanzamiento"].nil?
+				registro["nombre"] = "NULL" if registro["nombre"].nil?
 				registro["companiaDiscografica"] = "NULL" if registro["companiaDiscografica"].nil?
 
 				cancion = CancionSL.new 
@@ -72,6 +72,7 @@ class MapperPlaylist
 				cancion.imagenAlbum = registro["imagenAlbum"]
 				cancion.anioLanzamiento = registro["anioLanzamiento"]
 				cancion.companiaDiscografica = registro["companiaDiscografica"]
+				cancion.artista = registro["nombre"]
 				canciones << cancion
 	   		end
 
@@ -85,6 +86,7 @@ class MapperPlaylist
 	   	end
 	   	canciones 
 	end
+
 	def insertar_playlist(playlist) 
 			var = false
 			begin 
